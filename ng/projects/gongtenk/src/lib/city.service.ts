@@ -44,7 +44,7 @@ export class CityService {
     origin = origin.replace("4200", "8080")
 
     // compute path to the service
-    this.citysUrl = origin + '/api/github.com/thomaspeugeot/gongtenk/go/v1/citys';
+    this.citysUrl = origin + '/api/github.com/tenktenk/gongtenk/go/v1/citys';
   }
 
   /** GET citys from the server */

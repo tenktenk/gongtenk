@@ -20,7 +20,7 @@ func SetupModels(logMode bool, filepath string) *gorm.DB {
 	// adjust naming strategy to the stack
 	gormConfig := &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
-			TablePrefix: "github_com_thomaspeugeot_gongtenk_go_", // table name prefix
+			TablePrefix: "github_com_tenktenk_gongtenk_go_", // table name prefix
 		},
 	}
 	db, err := gorm.Open(sqlite.Open(filepath), gormConfig)
@@ -38,7 +38,7 @@ func SetupModels(logMode bool, filepath string) *gorm.DB {
 func AutoMigrate(db *gorm.DB) {
 	// adjust naming strategy to the stack
 	db.Config.NamingStrategy = &schema.NamingStrategy{
-		TablePrefix: "github_com_thomaspeugeot_gongtenk_go_", // table name prefix
+		TablePrefix: "github_com_tenktenk_gongtenk_go_", // table name prefix
 	}
 
 	err := db.AutoMigrate( // insertion point for reference to structs
@@ -50,9 +50,9 @@ func AutoMigrate(db *gorm.DB) {
 
 	if err != nil {
 		msg := err.Error()
-		panic("problem with migration " + msg + " on package github.com/thomaspeugeot/gongtenk/go")
+		panic("problem with migration " + msg + " on package github.com/tenktenk/gongtenk/go")
 	}
-	log.Printf("Database Migration of package github.com/thomaspeugeot/gongtenk/go is OK")
+	log.Printf("Database Migration of package github.com/tenktenk/gongtenk/go is OK")
 
 	BackRepo.init(db)
 }

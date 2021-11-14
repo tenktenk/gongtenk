@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/thomaspeugeot/gongtenk/go/orm"
+	"github.com/tenktenk/gongtenk/go/orm"
 )
 
 // genQuery return the name of the column
@@ -41,7 +41,7 @@ type ValidationError struct {
 
 // RegisterControllers register controllers
 func RegisterControllers(r *gin.Engine) {
-	v1 := r.Group("/api/github.com/thomaspeugeot/gongtenk/go")
+	v1 := r.Group("/api/github.com/tenktenk/gongtenk/go")
 	{ // insertion point for registrations
 		v1.GET("/v1/citys", GetCitys)
 		v1.GET("/v1/citys/:id", GetCity)

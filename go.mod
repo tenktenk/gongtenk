@@ -1,4 +1,4 @@
-module github.com/thomaspeugeot/gongtenk
+module github.com/tenktenk/gongtenk
 
 go 1.17
 

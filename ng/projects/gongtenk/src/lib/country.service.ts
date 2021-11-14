@@ -43,7 +43,7 @@ export class CountryService {
     origin = origin.replace("4200", "8080")
 
     // compute path to the service
-    this.countrysUrl = origin + '/api/github.com/thomaspeugeot/gongtenk/go/v1/countrys';
+    this.countrysUrl = origin + '/api/github.com/tenktenk/gongtenk/go/v1/countrys';
   }
 
   /** GET countrys from the server */

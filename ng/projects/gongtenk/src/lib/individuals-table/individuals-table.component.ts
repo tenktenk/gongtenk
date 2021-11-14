@@ -213,14 +213,14 @@ export class IndividualsTableComponent implements OnInit {
 
   // display individual in router
   displayIndividualInRouter(individualID: number) {
-    this.router.navigate(["github_com_thomaspeugeot_gongtenk_go-" + "individual-display", individualID])
+    this.router.navigate(["github_com_tenktenk_gongtenk_go-" + "individual-display", individualID])
   }
 
   // set editor outlet
   setEditorRouterOutlet(individualID: number) {
     this.router.navigate([{
       outlets: {
-        github_com_thomaspeugeot_gongtenk_go_editor: ["github_com_thomaspeugeot_gongtenk_go-" + "individual-detail", individualID]
+        github_com_tenktenk_gongtenk_go_editor: ["github_com_tenktenk_gongtenk_go-" + "individual-detail", individualID]
       }
     }]);
   }
@@ -229,7 +229,7 @@ export class IndividualsTableComponent implements OnInit {
   setPresentationRouterOutlet(individualID: number) {
     this.router.navigate([{
       outlets: {
-        github_com_thomaspeugeot_gongtenk_go_presentation: ["github_com_thomaspeugeot_gongtenk_go-" + "individual-presentation", individualID]
+        github_com_tenktenk_gongtenk_go_presentation: ["github_com_tenktenk_gongtenk_go-" + "individual-presentation", individualID]
       }
     }]);
   }

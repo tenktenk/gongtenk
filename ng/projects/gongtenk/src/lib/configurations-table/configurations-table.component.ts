@@ -219,14 +219,14 @@ export class ConfigurationsTableComponent implements OnInit {
 
   // display configuration in router
   displayConfigurationInRouter(configurationID: number) {
-    this.router.navigate(["github_com_thomaspeugeot_gongtenk_go-" + "configuration-display", configurationID])
+    this.router.navigate(["github_com_tenktenk_gongtenk_go-" + "configuration-display", configurationID])
   }
 
   // set editor outlet
   setEditorRouterOutlet(configurationID: number) {
     this.router.navigate([{
       outlets: {
-        github_com_thomaspeugeot_gongtenk_go_editor: ["github_com_thomaspeugeot_gongtenk_go-" + "configuration-detail", configurationID]
+        github_com_tenktenk_gongtenk_go_editor: ["github_com_tenktenk_gongtenk_go-" + "configuration-detail", configurationID]
       }
     }]);
   }
@@ -235,7 +235,7 @@ export class ConfigurationsTableComponent implements OnInit {
   setPresentationRouterOutlet(configurationID: number) {
     this.router.navigate([{
       outlets: {
-        github_com_thomaspeugeot_gongtenk_go_presentation: ["github_com_thomaspeugeot_gongtenk_go-" + "configuration-presentation", configurationID]
+        github_com_tenktenk_gongtenk_go_presentation: ["github_com_tenktenk_gongtenk_go-" + "configuration-presentation", configurationID]
       }
     }]);
   }

@@ -213,14 +213,14 @@ export class CountrysTableComponent implements OnInit {
 
   // display country in router
   displayCountryInRouter(countryID: number) {
-    this.router.navigate(["github_com_thomaspeugeot_gongtenk_go-" + "country-display", countryID])
+    this.router.navigate(["github_com_tenktenk_gongtenk_go-" + "country-display", countryID])
   }
 
   // set editor outlet
   setEditorRouterOutlet(countryID: number) {
     this.router.navigate([{
       outlets: {
-        github_com_thomaspeugeot_gongtenk_go_editor: ["github_com_thomaspeugeot_gongtenk_go-" + "country-detail", countryID]
+        github_com_tenktenk_gongtenk_go_editor: ["github_com_tenktenk_gongtenk_go-" + "country-detail", countryID]
       }
     }]);
   }
@@ -229,7 +229,7 @@ export class CountrysTableComponent implements OnInit {
   setPresentationRouterOutlet(countryID: number) {
     this.router.navigate([{
       outlets: {
-        github_com_thomaspeugeot_gongtenk_go_presentation: ["github_com_thomaspeugeot_gongtenk_go-" + "country-presentation", countryID]
+        github_com_tenktenk_gongtenk_go_presentation: ["github_com_tenktenk_gongtenk_go-" + "country-presentation", countryID]
       }
     }]);
   }

@@ -256,14 +256,14 @@ export class CitysTableComponent implements OnInit {
 
   // display city in router
   displayCityInRouter(cityID: number) {
-    this.router.navigate(["github_com_thomaspeugeot_gongtenk_go-" + "city-display", cityID])
+    this.router.navigate(["github_com_tenktenk_gongtenk_go-" + "city-display", cityID])
   }
 
   // set editor outlet
   setEditorRouterOutlet(cityID: number) {
     this.router.navigate([{
       outlets: {
-        github_com_thomaspeugeot_gongtenk_go_editor: ["github_com_thomaspeugeot_gongtenk_go-" + "city-detail", cityID]
+        github_com_tenktenk_gongtenk_go_editor: ["github_com_tenktenk_gongtenk_go-" + "city-detail", cityID]
       }
     }]);
   }
@@ -272,7 +272,7 @@ export class CitysTableComponent implements OnInit {
   setPresentationRouterOutlet(cityID: number) {
     this.router.navigate([{
       outlets: {
-        github_com_thomaspeugeot_gongtenk_go_presentation: ["github_com_thomaspeugeot_gongtenk_go-" + "city-presentation", cityID]
+        github_com_tenktenk_gongtenk_go_presentation: ["github_com_tenktenk_gongtenk_go-" + "city-presentation", cityID]
       }
     }]);
   }

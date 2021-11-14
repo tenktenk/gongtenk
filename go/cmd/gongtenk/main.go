@@ -21,14 +21,14 @@ import (
 	gongleaflet_orm "github.com/fullstack-lang/gongleaflet/go/orm"
 	_ "github.com/fullstack-lang/gongleaflet/ng"
 
-	gongtenk "github.com/thomaspeugeot/gongtenk"
+	gongtenk "github.com/tenktenk/gongtenk"
 
-	_ "github.com/thomaspeugeot/gongtenk/go/icons"
+	_ "github.com/tenktenk/gongtenk/go/icons"
 
-	gongtenk_controllers "github.com/thomaspeugeot/gongtenk/go/controllers"
-	gongtenk_models "github.com/thomaspeugeot/gongtenk/go/models"
-	gongtenk_orm "github.com/thomaspeugeot/gongtenk/go/orm"
-	gongtenk_visuals "github.com/thomaspeugeot/gongtenk/go/visuals"
+	gongtenk_controllers "github.com/tenktenk/gongtenk/go/controllers"
+	gongtenk_models "github.com/tenktenk/gongtenk/go/models"
+	gongtenk_orm "github.com/tenktenk/gongtenk/go/orm"
+	gongtenk_visuals "github.com/tenktenk/gongtenk/go/visuals"
 
 	gongxlsx_controllers "github.com/fullstack-lang/gongxlsx/go/controllers"
 	gongxlsx_models "github.com/fullstack-lang/gongxlsx/go/models"

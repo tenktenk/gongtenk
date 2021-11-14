@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/thomaspeugeot/gongtenk/go/models"
-	"github.com/thomaspeugeot/gongtenk/go/orm"
+	"github.com/tenktenk/gongtenk/go/models"
+	"github.com/tenktenk/gongtenk/go/orm"
 
 	"github.com/gin-gonic/gin"
 )

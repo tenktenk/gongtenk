@@ -43,7 +43,7 @@ export class IndividualService {
     origin = origin.replace("4200", "8080")
 
     // compute path to the service
-    this.individualsUrl = origin + '/api/github.com/thomaspeugeot/gongtenk/go/v1/individuals';
+    this.individualsUrl = origin + '/api/github.com/tenktenk/gongtenk/go/v1/individuals';
   }
 
   /** GET individuals from the server */

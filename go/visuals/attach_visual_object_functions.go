@@ -6,7 +6,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/thomaspeugeot/gongtenk/go/models"
+	"github.com/tenktenk/gongtenk/go/models"
 
 	gongleaflet_icons "github.com/fullstack-lang/gongleaflet/go/icons"
 	gongleaflet_models "github.com/fullstack-lang/gongleaflet/go/models"

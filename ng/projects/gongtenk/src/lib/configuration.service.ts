@@ -43,7 +43,7 @@ export class ConfigurationService {
     origin = origin.replace("4200", "8080")
 
     // compute path to the service
-    this.configurationsUrl = origin + '/api/github.com/thomaspeugeot/gongtenk/go/v1/configurations';
+    this.configurationsUrl = origin + '/api/github.com/tenktenk/gongtenk/go/v1/configurations';
   }
 
   /** GET configurations from the server */

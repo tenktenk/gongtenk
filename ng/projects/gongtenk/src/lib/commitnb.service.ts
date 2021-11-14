@@ -34,7 +34,7 @@ export class CommitNbService {
         origin = origin.replace("4200", "8080")
 
         // compute path to the service
-        this.commitNbUrl = origin + '/api/github.com/thomaspeugeot/gongtenk/go/commitnb';
+        this.commitNbUrl = origin + '/api/github.com/tenktenk/gongtenk/go/commitnb';
     }
 
     // observable of the commit nb getter

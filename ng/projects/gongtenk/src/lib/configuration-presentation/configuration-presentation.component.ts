@@ -72,7 +72,7 @@ export class ConfigurationPresentationComponent implements OnInit {
 	setPresentationRouterOutlet(structName: string, ID: number) {
 		this.router.navigate([{
 			outlets: {
-				github_com_thomaspeugeot_gongtenk_go_presentation: ["github_com_thomaspeugeot_gongtenk_go-" + structName + "-presentation", ID]
+				github_com_tenktenk_gongtenk_go_presentation: ["github_com_tenktenk_gongtenk_go-" + structName + "-presentation", ID]
 			}
 		}]);
 	}
@@ -81,7 +81,7 @@ export class ConfigurationPresentationComponent implements OnInit {
 	setEditorRouterOutlet(ID: number) {
 		this.router.navigate([{
 			outlets: {
-				github_com_thomaspeugeot_gongtenk_go_editor: ["github_com_thomaspeugeot_gongtenk_go-" + "configuration-detail", ID]
+				github_com_tenktenk_gongtenk_go_editor: ["github_com_tenktenk_gongtenk_go-" + "configuration-detail", ID]
 			}
 		}]);
 	}

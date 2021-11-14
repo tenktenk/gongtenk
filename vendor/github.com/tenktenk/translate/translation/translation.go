@@ -4,7 +4,7 @@ Package translation provides functions for managing a translation between two co
 package translation
 
 /* import (
-	"github.com/thomaspeugeot/tkv/grump"
+	"github.com/tenktenk/translate/grump"
 ) */
 
 // Singloton pointing to the current translation

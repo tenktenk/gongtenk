@@ -10,13 +10,12 @@ require (
 	github.com/gin-gonic/gin v1.7.4
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/tealeg/xlsx/v3 v3.2.3
-	github.com/thomaspeugeot/tkv v0.0.0-20211111045940-cd9892fc7e40
 	gorm.io/driver/sqlite v1.2.3
 	gorm.io/gorm v1.22.2
 )
 
 require (
-	github.com/ajstarks/svgo v0.0.0-20210927141636-6d70534b1098 // indirect
+	github.com/ajstarks/svgo v0.0.0-20211024235047-1546f124cd8b // indirect
 	github.com/frankban/quicktest v1.13.1 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
@@ -39,6 +38,7 @@ require (
 	github.com/rogpeppe/fastuuid v1.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
 	github.com/shabbyrobe/xmlwriter v0.0.0-20210324110748-440e98cf0c87 // indirect
+	github.com/tenktenk/translate v0.0.0-20211114192220-06e6d572e431
 	github.com/ugorji/go/codec v1.2.6 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/sys v0.0.0-20211015200801-69063c4bb744 // indirect

@@ -1,7 +1,7 @@
 package barneshut
 
 import (
-	"github.com/thomaspeugeot/tkv/quadtree"
+	"github.com/tenktenk/translate/quadtree"
 )
 
 // relative to a body of interest, the storage for a neighbour with its distance

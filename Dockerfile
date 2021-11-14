@@ -11,11 +11,6 @@ COPY go.mod .
 COPY go.sum .
 
 # sequence go mod download to have different layers
-RUN go mod download gorm.io/driver/sqlite
-RUN go mod download gorm.io/gorm
-RUN go mod download github.com/tealeg/xlsx/v3
-RUN go mod download github.com/gin-gonic/gin
-RUN go mod download github.com/thomaspeugeot/tkv
 RUN go mod download
 
 # Copy the source code. Note the slash at the end, as explained in

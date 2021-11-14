@@ -6,7 +6,7 @@ import (
 	"runtime"
 
 	"github.com/gyuho/goraph"
-	"github.com/thomaspeugeot/tkv/quadtree"
+	"github.com/tenktenk/translate/quadtree"
 )
 
 func AddBodiesOfParselyPopulatedCells(

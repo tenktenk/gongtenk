@@ -9,9 +9,9 @@ import (
 	"math"
 	"os"
 
-	"github.com/thomaspeugeot/tkv/barnes-hut"
-	"github.com/thomaspeugeot/tkv/grump"
-	"github.com/thomaspeugeot/tkv/quadtree"
+	barneshut "github.com/tenktenk/translate/barnes-hut"
+	"github.com/tenktenk/translate/grump"
+	"github.com/tenktenk/translate/quadtree"
 )
 
 type CountryWithBodies struct {

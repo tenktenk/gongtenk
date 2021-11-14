@@ -1,7 +1,7 @@
 package barneshut
 
 import (
-	"github.com/thomaspeugeot/tkv/quadtree"
+	"github.com/tenktenk/translate/quadtree"
 )
 
 type Body struct {

@@ -35,7 +35,7 @@ import (
 	gongxlsx_orm "github.com/fullstack-lang/gongxlsx/go/orm"
 	_ "github.com/fullstack-lang/gongxlsx/ng"
 
-	"github.com/thomaspeugeot/tkv/translation"
+	"github.com/tenktenk/translate/translation"
 	// load visuals package
 )
 

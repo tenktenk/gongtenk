@@ -1,4 +1,4 @@
-# github.com/ajstarks/svgo v0.0.0-20210927141636-6d70534b1098
+# github.com/ajstarks/svgo v0.0.0-20211024235047-1546f124cd8b
 ## explicit; go 1.15
 github.com/ajstarks/svgo/float
 # github.com/frankban/quicktest v1.13.1
@@ -105,12 +105,12 @@ github.com/shabbyrobe/xmlwriter
 # github.com/tealeg/xlsx/v3 v3.2.3
 ## explicit; go 1.14
 github.com/tealeg/xlsx/v3
-# github.com/thomaspeugeot/tkv v0.0.0-20211111045940-cd9892fc7e40
+# github.com/tenktenk/translate v0.0.0-20211114192220-06e6d572e431
 ## explicit; go 1.17
-github.com/thomaspeugeot/tkv/barnes-hut
-github.com/thomaspeugeot/tkv/grump
-github.com/thomaspeugeot/tkv/quadtree
-github.com/thomaspeugeot/tkv/translation
+github.com/tenktenk/translate/barnes-hut
+github.com/tenktenk/translate/grump
+github.com/tenktenk/translate/quadtree
+github.com/tenktenk/translate/translation
 # github.com/ugorji/go/codec v1.2.6
 ## explicit; go 1.11
 github.com/ugorji/go/codec

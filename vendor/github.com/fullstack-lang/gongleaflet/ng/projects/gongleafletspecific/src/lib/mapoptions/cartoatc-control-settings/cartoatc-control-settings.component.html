@@ -1,0 +1,21 @@
+<div class="control-settings">
+    <div *ngIf="open">
+        <h4>Settings</h4>
+        <button mat-icon-button color="dark" (click)="toggleOpen()" class="control-settings__close">
+            <mat-icon>close</mat-icon>
+        </button>
+        <ul>
+            <li *ngFor="let item of list">
+                <mat-slide-toggle
+                    color="primary"
+                    (change)="handleChange($event, item.id)"
+                    [checked]="item.status">
+                    {{ item.display }}
+                </mat-slide-toggle>
+            </li>
+        </ul>
+    </div>
+    <button mat-fab color="white" *ngIf="!open" (click)="toggleOpen()">
+        <mat-icon>settings</mat-icon>
+    </button>
+</div>

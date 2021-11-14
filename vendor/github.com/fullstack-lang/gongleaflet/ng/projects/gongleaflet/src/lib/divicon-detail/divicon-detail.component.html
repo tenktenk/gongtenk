@@ -1,0 +1,49 @@
+<form *ngIf="divicon" class="details">
+    <h2 class="details__title">divicon</h2>
+    <!-- insertion point for fields specific code -->
+    <mat-grid-list *ngIf='!isATextArea("Name")' cols="5" rowHeight="2:1">
+        <mat-grid-tile [colspan]="3">
+            <mat-form-field mat-form-field class="detail-full-width">
+                <mat-label>Name</mat-label>
+                <input name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="divicon.Name">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button (click)="toggleTextArea('Name')">
+                <mat-icon>
+                    expand_more
+                </mat-icon>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-form-field *ngIf='isATextArea("Name")' mat-form-field class="detail-full-width">
+        <mat-label>Name</mat-label>
+        <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="divicon.Name"></textarea>
+    </mat-form-field>
+
+    <mat-grid-list *ngIf='!isATextArea("SVG")' cols="5" rowHeight="2:1">
+        <mat-grid-tile [colspan]="3">
+            <mat-form-field mat-form-field class="detail-full-width">
+                <mat-label>SVG</mat-label>
+                <input name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="divicon.SVG">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button (click)="toggleTextArea('SVG')">
+                <mat-icon>
+                    expand_more
+                </mat-icon>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-form-field *ngIf='isATextArea("SVG")' mat-form-field class="detail-full-width">
+        <mat-label>SVG</mat-label>
+        <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="divicon.SVG"></textarea>
+    </mat-form-field>
+
+    <div class="details__save">
+        <button mat-raised-button color="primary" (click)="save()">
+            Save divicon
+        </button>
+    </div>
+</form>

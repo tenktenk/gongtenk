@@ -1,0 +1,71 @@
+<form *ngIf="marker" class="details">
+    <h2 class="details__title">marker</h2>
+    <!-- insertion point for fields specific code -->
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>Lat</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="marker.Lat" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>Lng</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="marker.Lng" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <mat-grid-list *ngIf='!isATextArea("Name")' cols="5" rowHeight="2:1">
+        <mat-grid-tile [colspan]="3">
+            <mat-form-field mat-form-field class="detail-full-width">
+                <mat-label>Name</mat-label>
+                <input name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="marker.Name">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button (click)="toggleTextArea('Name')">
+                <mat-icon>
+                    expand_more
+                </mat-icon>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-form-field *ngIf='isATextArea("Name")' mat-form-field class="detail-full-width">
+        <mat-label>Name</mat-label>
+        <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="marker.Name"></textarea>
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field appearance="fill" class="detail-full-width">
+        <mat-label>ColorEnum</mat-label>
+        <mat-select [(ngModel)]="marker.ColorEnum" [ngModelOptions]="{standalone: true}">
+            <mat-option *ngFor="let enum of ColorEnumList" [value]="enum.value">
+                {{enum.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="detail-full-width">
+        <mat-label>LayerGroup</mat-label>
+        <mat-select [compareWith]="compareObjects" [(value)]="marker.LayerGroup" (selectionChange)="fillUpNameIfEmpty($event)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let layergroup of frontRepo.LayerGroups_array" [value]="layergroup">
+                {{layergroup.Name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="detail-full-width">
+        <mat-label>DivIcon</mat-label>
+        <mat-select [compareWith]="compareObjects" [(value)]="marker.DivIcon" (selectionChange)="fillUpNameIfEmpty($event)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let divicon of frontRepo.DivIcons_array" [value]="divicon">
+                {{divicon.Name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="details__save">
+        <button mat-raised-button color="primary" (click)="save()">
+            Save marker
+        </button>
+    </div>
+</form>

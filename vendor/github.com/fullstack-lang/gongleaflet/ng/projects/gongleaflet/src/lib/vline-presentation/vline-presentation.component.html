@@ -1,0 +1,65 @@
+
+<div class="presentation__header" (click)="setEditorRouterOutlet(vline.ID)">
+    <h1>VLine's fields <span class="material-icons">edit</span></h1>
+</div>
+<table *ngIf="vline" class="presentation__table mat-table">
+    <tr class="mat-header-row">
+        <th class="mat-header-cell">Name</th>
+        <th class="mat-header-cell">Value</th>
+    </tr>
+    <!-- insertion point for fields specific code -->
+    <tr class="mat-row">
+        <td class="mat-cell">StartLat</td>
+        <td class="mat-cell">{{vline.StartLat}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">StartLng</td>
+        <td class="mat-cell">{{vline.StartLng}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">EndLat</td>
+        <td class="mat-cell">{{vline.EndLat}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">EndLng</td>
+        <td class="mat-cell">{{vline.EndLng}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">Name</td>
+        <td class="mat-cell">{{vline.Name}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">ColorEnum</td>
+        <td class="mat-cell">{{vline.ColorEnum}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">DashStyleEnum</td>
+        <td class="mat-cell">{{vline.DashStyleEnum}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">LayerGroup</td>
+        <td class="mat-cell">{{vline.LayerGroup ? vline.LayerGroup.Name : ""}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">IsTransmitting</td>
+        <td class="mat-cell">{{vline.IsTransmitting}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">Message</td>
+        <td class="mat-cell">{{vline.Message}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">IsTransmittingBackward</td>
+        <td class="mat-cell">{{vline.IsTransmittingBackward}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">MessageBackward</td>
+        <td class="mat-cell">{{vline.MessageBackward}}</td>
+    </tr>
+</table>
+<!-- hack to force loading of mat table style an error is generated but it is a know angular issue https://github.com/angular/components/issues/10941 -->
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Position Column -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

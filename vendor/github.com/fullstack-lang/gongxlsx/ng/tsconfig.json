@@ -1,0 +1,50 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "strict": true,
+    "paths": {
+      "@angular/*": [
+        "./node_modules/@angular/*"
+      ],
+      "@angular-material-components/datetime-picker": [
+        "./node_modules/@angular-material-components/datetime-picker"
+      ],
+      "rxjs/operators": [
+        "./node_modules/rxjs/operators"
+      ],
+      "rxjs": [
+        "./node_modules/rxjs"
+      ],
+      "tslib": [
+        "./node_modules/tslib"
+      ],
+      "gongxlsx": [
+        "projects/gongxlsx/src/public-api.ts",
+      ],
+      "gongxlsxspecific": [
+        "projects/gongxlsxspecific/src/public-api.ts"
+      ],
+      "angular-split": [
+        "./node_modules/angular-split"
+      ],
+    },
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false
+  }
+}

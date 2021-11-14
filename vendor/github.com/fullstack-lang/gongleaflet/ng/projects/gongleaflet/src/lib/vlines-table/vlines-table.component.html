@@ -1,0 +1,142 @@
+<div>
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    </mat-form-field>
+    <h1 *ngIf="dialogData">vline</h1>
+    <table class="table" mat-table [dataSource]="matTableDataSource" matSort>
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select" sticky>
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+
+        <!-- insertion point for fields specific code -->
+        <!-- -->
+        <ng-container matColumnDef="StartLat">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> StartLat </th>
+            <td mat-cell *matCellDef="let VLine">
+                {{VLine.StartLat.toPrecision(5)}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="StartLng">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> StartLng </th>
+            <td mat-cell *matCellDef="let VLine">
+                {{VLine.StartLng.toPrecision(5)}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="EndLat">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> EndLat </th>
+            <td mat-cell *matCellDef="let VLine">
+                {{VLine.EndLat.toPrecision(5)}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="EndLng">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> EndLng </th>
+            <td mat-cell *matCellDef="let VLine">
+                {{VLine.EndLng.toPrecision(5)}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="Name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let VLine">
+                {{VLine.Name}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="ColorEnum">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ColorEnum </th>
+            <td mat-cell *matCellDef="let VLine">
+                {{VLine.ColorEnum}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="DashStyleEnum">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> DashStyleEnum </th>
+            <td mat-cell *matCellDef="let VLine">
+                {{VLine.DashStyleEnum}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="LayerGroup">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> LayerGroup </th>
+            <td mat-cell *matCellDef="let VLine">
+                {{ VLine.LayerGroup ? VLine.LayerGroup.Name : ''}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="IsTransmitting">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> IsTransmitting </th>
+            <td mat-cell *matCellDef="let VLine">
+                {{VLine.IsTransmitting}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="Message">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Message </th>
+            <td mat-cell *matCellDef="let VLine">
+                {{VLine.Message}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="IsTransmittingBackward">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> IsTransmittingBackward </th>
+            <td mat-cell *matCellDef="let VLine">
+                {{VLine.IsTransmittingBackward}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="MessageBackward">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> MessageBackward </th>
+            <td mat-cell *matCellDef="let VLine">
+                {{VLine.MessageBackward}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ID" sticky>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID. </th>
+            <td mat-cell *matCellDef="let VLine"> {{VLine.ID}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Edit">
+            <th mat-header-cell *matHeaderCellDef> Edit </th>
+            <td mat-cell *matCellDef="let vline;  let j = index;">
+                <i class="material-icons" [ngStyle]="{'color':'rgba(0,0,0,.50)'}" (click)="setEditorRouterOutlet(vline.ID)">edit</i>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Delete">
+            <th mat-header-cell *matHeaderCellDef> Delete </th>
+            <td mat-cell *matCellDef="let vline;  let j = index;">
+                <i class="material-icons" [ngStyle]="{'color':'rgba(0,0,0,.50)'}" (click)="deleteVLine(vline.ID, vline)">delete</i>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+
+        <tr mat-row *matRowDef="
+        let row; 
+        columns: displayedColumns;
+        " (click)="setPresentationRouterOutlet( row.ID ) " class="row-link">
+        </tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100, 500, 1000]" showFirstLastButtons></mat-paginator>
+</div>
+<button class="table__save" color="primary" *ngIf="dialogData" mat-raised-button (click)="save()">
+    Save
+</button>

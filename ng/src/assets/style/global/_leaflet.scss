@@ -1,0 +1,57 @@
+/*
+   Animate the change map placemark position with an animation
+   New position every 1s
+*/
+.leaflet-marker-pane > * {
+  transition: transform 1s linear;
+}
+
+.leaflet-overlay-pane > svg path {
+  transition: d 2s;
+}
+
+.pin {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+    transition: transform 1s linear;
+
+    & > svg, & > img {
+        width: 100%;
+        height: 100%;
+    }
+
+    &__content {
+      color: currentColor;
+      width: 15rem;
+      text-align: center;
+      text-transform: uppercase;
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+
+      h3 {
+        margin: 0;
+      }
+    }
+}
+
+.leaflet-marker-icon, .leaflet-div-icon {
+    border: none !important;
+    background: none !important;
+}
+
+.leaflet-tooltip {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+
+  .custom-tooltip {
+    &::before {
+    }
+  }
+}

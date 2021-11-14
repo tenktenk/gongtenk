@@ -1,0 +1,17 @@
+<div id="atcmapid">
+    <ng-container *ngIf="leafletMapOptions">
+        <div style="height:100%;width:100%;" leaflet [leafletOptions]="leafletMapOptions"
+            (leafletMapReady)="onMapReady($event)" (leafletClick)="onMapClick($event)"
+            [leafletLayers]="rootOfLayerGroups">
+            <!-- <div ></div>
+            <div [leafletLayers]="visualTracksHistory"></div> -->
+        </div>
+        <app-cartoatc-control-settings [mapName]="mapName"></app-cartoatc-control-settings>
+    </ng-container>
+    <ng-container *ngIf="!leafletMapOptions">
+        <div class="cartoatc--empty">
+            <p>Map options not yet loaded</p>
+        </div>
+    </ng-container>
+    If you see this message, this is because there is a problem with the leaflet carto display
+</div>

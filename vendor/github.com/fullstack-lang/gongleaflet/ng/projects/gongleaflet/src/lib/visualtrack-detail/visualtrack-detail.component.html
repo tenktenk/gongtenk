@@ -1,0 +1,101 @@
+<form *ngIf="visualtrack" class="details">
+    <h2 class="details__title">visualtrack</h2>
+    <!-- insertion point for fields specific code -->
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>Lat</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="visualtrack.Lat" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>Lng</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="visualtrack.Lng" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>Heading</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="visualtrack.Heading" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>Level</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="visualtrack.Level" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>Speed</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="visualtrack.Speed" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>VerticalSpeed</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="visualtrack.VerticalSpeed" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <mat-grid-list *ngIf='!isATextArea("Name")' cols="5" rowHeight="2:1">
+        <mat-grid-tile [colspan]="3">
+            <mat-form-field mat-form-field class="detail-full-width">
+                <mat-label>Name</mat-label>
+                <input name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="visualtrack.Name">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button (click)="toggleTextArea('Name')">
+                <mat-icon>
+                    expand_more
+                </mat-icon>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-form-field *ngIf='isATextArea("Name")' mat-form-field class="detail-full-width">
+        <mat-label>Name</mat-label>
+        <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="visualtrack.Name"></textarea>
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field appearance="fill" class="detail-full-width">
+        <mat-label>ColorEnum</mat-label>
+        <mat-select [(ngModel)]="visualtrack.ColorEnum" [ngModelOptions]="{standalone: true}">
+            <mat-option *ngFor="let enum of ColorEnumList" [value]="enum.value">
+                {{enum.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="detail-full-width">
+        <mat-label>LayerGroup</mat-label>
+        <mat-select [compareWith]="compareObjects" [(value)]="visualtrack.LayerGroup" (selectionChange)="fillUpNameIfEmpty($event)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let layergroup of frontRepo.LayerGroups_array" [value]="layergroup">
+                {{layergroup.Name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="detail-full-width">
+        <mat-label>DivIcon</mat-label>
+        <mat-select [compareWith]="compareObjects" [(value)]="visualtrack.DivIcon" (selectionChange)="fillUpNameIfEmpty($event)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let divicon of frontRepo.DivIcons_array" [value]="divicon">
+                {{divicon.Name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!-- -->
+    <mat-checkbox [formControl]="DisplayTrackHistoryFormControl">DisplayTrackHistory</mat-checkbox>
+
+    <!-- -->
+    <mat-checkbox [formControl]="DisplayLevelAndSpeedFormControl">DisplayLevelAndSpeed</mat-checkbox>
+
+    <div class="details__save">
+        <button mat-raised-button color="primary" (click)="save()">
+            Save visualtrack
+        </button>
+    </div>
+</form>

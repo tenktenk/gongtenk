@@ -1,0 +1,142 @@
+<div>
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    </mat-form-field>
+    <h1 *ngIf="dialogData">visualtrack</h1>
+    <table class="table" mat-table [dataSource]="matTableDataSource" matSort>
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select" sticky>
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+
+        <!-- insertion point for fields specific code -->
+        <!-- -->
+        <ng-container matColumnDef="Lat">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Lat </th>
+            <td mat-cell *matCellDef="let VisualTrack">
+                {{VisualTrack.Lat.toPrecision(5)}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="Lng">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Lng </th>
+            <td mat-cell *matCellDef="let VisualTrack">
+                {{VisualTrack.Lng.toPrecision(5)}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="Heading">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Heading </th>
+            <td mat-cell *matCellDef="let VisualTrack">
+                {{VisualTrack.Heading.toPrecision(5)}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="Level">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Level </th>
+            <td mat-cell *matCellDef="let VisualTrack">
+                {{VisualTrack.Level.toPrecision(5)}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="Speed">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Speed </th>
+            <td mat-cell *matCellDef="let VisualTrack">
+                {{VisualTrack.Speed.toPrecision(5)}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="VerticalSpeed">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> VerticalSpeed </th>
+            <td mat-cell *matCellDef="let VisualTrack">
+                {{VisualTrack.VerticalSpeed.toPrecision(5)}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="Name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let VisualTrack">
+                {{VisualTrack.Name}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="ColorEnum">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ColorEnum </th>
+            <td mat-cell *matCellDef="let VisualTrack">
+                {{VisualTrack.ColorEnum}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="LayerGroup">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> LayerGroup </th>
+            <td mat-cell *matCellDef="let VisualTrack">
+                {{ VisualTrack.LayerGroup ? VisualTrack.LayerGroup.Name : ''}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="DivIcon">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> DivIcon </th>
+            <td mat-cell *matCellDef="let VisualTrack">
+                {{ VisualTrack.DivIcon ? VisualTrack.DivIcon.Name : ''}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="DisplayTrackHistory">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> DisplayTrackHistory </th>
+            <td mat-cell *matCellDef="let VisualTrack">
+                <mat-checkbox [checked]="VisualTrack.DisplayTrackHistory" disabled=true></mat-checkbox>
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="DisplayLevelAndSpeed">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> DisplayLevelAndSpeed </th>
+            <td mat-cell *matCellDef="let VisualTrack">
+                <mat-checkbox [checked]="VisualTrack.DisplayLevelAndSpeed" disabled=true></mat-checkbox>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ID" sticky>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID. </th>
+            <td mat-cell *matCellDef="let VisualTrack"> {{VisualTrack.ID}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Edit">
+            <th mat-header-cell *matHeaderCellDef> Edit </th>
+            <td mat-cell *matCellDef="let visualtrack;  let j = index;">
+                <i class="material-icons" [ngStyle]="{'color':'rgba(0,0,0,.50)'}" (click)="setEditorRouterOutlet(visualtrack.ID)">edit</i>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Delete">
+            <th mat-header-cell *matHeaderCellDef> Delete </th>
+            <td mat-cell *matCellDef="let visualtrack;  let j = index;">
+                <i class="material-icons" [ngStyle]="{'color':'rgba(0,0,0,.50)'}" (click)="deleteVisualTrack(visualtrack.ID, visualtrack)">delete</i>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+
+        <tr mat-row *matRowDef="
+        let row; 
+        columns: displayedColumns;
+        " (click)="setPresentationRouterOutlet( row.ID ) " class="row-link">
+        </tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100, 500, 1000]" showFirstLastButtons></mat-paginator>
+</div>
+<button class="table__save" color="primary" *ngIf="dialogData" mat-raised-button (click)="save()">
+    Save
+</button>

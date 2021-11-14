@@ -1,0 +1,118 @@
+<form *ngIf="mapoptions" class="details">
+    <h2 class="details__title">mapoptions</h2>
+    <!-- insertion point for fields specific code -->
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>Lat</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="mapoptions.Lat" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>Lng</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="mapoptions.Lng" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <mat-grid-list *ngIf='!isATextArea("Name")' cols="5" rowHeight="2:1">
+        <mat-grid-tile [colspan]="3">
+            <mat-form-field mat-form-field class="detail-full-width">
+                <mat-label>Name</mat-label>
+                <input name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="mapoptions.Name">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button (click)="toggleTextArea('Name')">
+                <mat-icon>
+                    expand_more
+                </mat-icon>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-form-field *ngIf='isATextArea("Name")' mat-form-field class="detail-full-width">
+        <mat-label>Name</mat-label>
+        <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="mapoptions.Name"></textarea>
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>ZoomLevel</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="mapoptions.ZoomLevel" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <mat-grid-list *ngIf='!isATextArea("UrlTemplate")' cols="5" rowHeight="2:1">
+        <mat-grid-tile [colspan]="3">
+            <mat-form-field mat-form-field class="detail-full-width">
+                <mat-label>UrlTemplate</mat-label>
+                <input name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="mapoptions.UrlTemplate">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button (click)="toggleTextArea('UrlTemplate')">
+                <mat-icon>
+                    expand_more
+                </mat-icon>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-form-field *ngIf='isATextArea("UrlTemplate")' mat-form-field class="detail-full-width">
+        <mat-label>UrlTemplate</mat-label>
+        <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="mapoptions.UrlTemplate"></textarea>
+    </mat-form-field>
+
+    <mat-grid-list *ngIf='!isATextArea("Attribution")' cols="5" rowHeight="2:1">
+        <mat-grid-tile [colspan]="3">
+            <mat-form-field mat-form-field class="detail-full-width">
+                <mat-label>Attribution</mat-label>
+                <input name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="mapoptions.Attribution">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button (click)="toggleTextArea('Attribution')">
+                <mat-icon>
+                    expand_more
+                </mat-icon>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-form-field *ngIf='isATextArea("Attribution")' mat-form-field class="detail-full-width">
+        <mat-label>Attribution</mat-label>
+        <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="mapoptions.Attribution"></textarea>
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>MaxZoom</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="mapoptions.MaxZoom" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <!-- -->
+    <mat-checkbox [formControl]="ZoomControlFormControl">ZoomControl</mat-checkbox>
+
+    <!-- -->
+    <mat-checkbox [formControl]="AttributionControlFormControl">AttributionControl</mat-checkbox>
+
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>ZoomSnap</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="mapoptions.ZoomSnap" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <mat-grid-list cols="5" rowHeight="2:1">
+        <mat-grid-tile [colspan]="3">
+            <button mat-raised-button (click)="openReverseSelection('LayerGroupUse', 'MapOptions_LayerGroupUsesDBID', 'ONE_MANY_ASSOCIATION_MODE', '', '', '')">LayerGroupUses</button>
+        </mat-grid-tile>
+        <!-- insertion point for the button of the MANY_MANY association-->
+        <mat-grid-tile>
+            <button mat-raised-button (click)="openDragAndDropOrdering('LayerGroupUse', 'MapOptions_LayerGroupUsesDBID')">
+                <mat-icon>
+                    shuffle
+                </mat-icon>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <div class="details__save">
+        <button mat-raised-button color="primary" (click)="save()">
+            Save mapoptions
+        </button>
+    </div>
+</form>

@@ -1,0 +1,143 @@
+<form *ngIf="vline" class="details">
+    <h2 class="details__title">vline</h2>
+    <!-- insertion point for fields specific code -->
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>StartLat</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="vline.StartLat" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>StartLng</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="vline.StartLng" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>EndLat</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="vline.EndLat" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>EndLng</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="vline.EndLng" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <mat-grid-list *ngIf='!isATextArea("Name")' cols="5" rowHeight="2:1">
+        <mat-grid-tile [colspan]="3">
+            <mat-form-field mat-form-field class="detail-full-width">
+                <mat-label>Name</mat-label>
+                <input name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="vline.Name">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button (click)="toggleTextArea('Name')">
+                <mat-icon>
+                    expand_more
+                </mat-icon>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-form-field *ngIf='isATextArea("Name")' mat-form-field class="detail-full-width">
+        <mat-label>Name</mat-label>
+        <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="vline.Name"></textarea>
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field appearance="fill" class="detail-full-width">
+        <mat-label>ColorEnum</mat-label>
+        <mat-select [(ngModel)]="vline.ColorEnum" [ngModelOptions]="{standalone: true}">
+            <mat-option *ngFor="let enum of ColorEnumList" [value]="enum.value">
+                {{enum.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field appearance="fill" class="detail-full-width">
+        <mat-label>DashStyleEnum</mat-label>
+        <mat-select [(ngModel)]="vline.DashStyleEnum" [ngModelOptions]="{standalone: true}">
+            <mat-option *ngFor="let enum of DashStyleEnumList" [value]="enum.value">
+                {{enum.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="detail-full-width">
+        <mat-label>LayerGroup</mat-label>
+        <mat-select [compareWith]="compareObjects" [(value)]="vline.LayerGroup" (selectionChange)="fillUpNameIfEmpty($event)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let layergroup of frontRepo.LayerGroups_array" [value]="layergroup">
+                {{layergroup.Name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field appearance="fill" class="detail-full-width">
+        <mat-label>IsTransmitting</mat-label>
+        <mat-select [(ngModel)]="vline.IsTransmitting" [ngModelOptions]="{standalone: true}">
+            <mat-option *ngFor="let enum of TransmittingEnumList" [value]="enum.value">
+                {{enum.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-grid-list *ngIf='!isATextArea("Message")' cols="5" rowHeight="2:1">
+        <mat-grid-tile [colspan]="3">
+            <mat-form-field mat-form-field class="detail-full-width">
+                <mat-label>Message</mat-label>
+                <input name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="vline.Message">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button (click)="toggleTextArea('Message')">
+                <mat-icon>
+                    expand_more
+                </mat-icon>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-form-field *ngIf='isATextArea("Message")' mat-form-field class="detail-full-width">
+        <mat-label>Message</mat-label>
+        <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="vline.Message"></textarea>
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field appearance="fill" class="detail-full-width">
+        <mat-label>IsTransmittingBackward</mat-label>
+        <mat-select [(ngModel)]="vline.IsTransmittingBackward" [ngModelOptions]="{standalone: true}">
+            <mat-option *ngFor="let enum of TransmittingEnumList" [value]="enum.value">
+                {{enum.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-grid-list *ngIf='!isATextArea("MessageBackward")' cols="5" rowHeight="2:1">
+        <mat-grid-tile [colspan]="3">
+            <mat-form-field mat-form-field class="detail-full-width">
+                <mat-label>MessageBackward</mat-label>
+                <input name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="vline.MessageBackward">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button (click)="toggleTextArea('MessageBackward')">
+                <mat-icon>
+                    expand_more
+                </mat-icon>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-form-field *ngIf='isATextArea("MessageBackward")' mat-form-field class="detail-full-width">
+        <mat-label>MessageBackward</mat-label>
+        <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="vline.MessageBackward"></textarea>
+    </mat-form-field>
+
+    <div class="details__save">
+        <button mat-raised-button color="primary" (click)="save()">
+            Save vline
+        </button>
+    </div>
+</form>

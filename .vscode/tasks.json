@@ -1,0 +1,340 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "02 - run gongtenk",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/go/cmd/gongtenk"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        "main.go",
+      ],
+      "group": "build"
+    },
+    {
+      "label": "03 - lsof -i tcp:8080 ",
+      "type": "shell",
+      "command": "lsof -i tcp:8080 ",
+      "group": "build"
+    },
+    {
+      "label": "05 - go test gongtenk",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/go/tests"
+      },
+      "command": "go",
+      "args": [
+        "test"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "03 - ng build",
+      "type": "shell",
+      "command": "cd ng; ng build",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "04 - ng serve",
+      "type": "shell",
+      "command": "cd ng; ng serve",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "01 - gongc gongtenk",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/go/models"
+      },
+      "command": "gongc",
+      "group": "build",
+      "args": []
+    },
+    {
+      "label": "01 - gongc gongtenk -backendOnly",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/go/models"
+      },
+      "command": "gongc",
+      "group": "build",
+      "args": [
+        "-backendOnly"
+      ]
+    },
+    {
+      "label": "00 - go mod vendor",
+      "type": "shell",
+      "group": "build",
+      "command": "go mod vendor"
+    },
+    {
+      "label": "00 - update gong dependencies",
+      "type": "shell",
+      "command": "go",
+      "args": [
+        "get",
+        "-d",
+        "github.com/fullstack-lang/gongxlsx@HEAD",
+        "github.com/fullstack-lang/gongleaflet@HEAD",
+      ],
+      "group": "build"
+    },
+    {
+      "label": "00 - go get -d github.com/fullstack-lang/gongxlsx@HEAD",
+      "type": "shell",
+      "command": "go",
+      "args": [
+        "get",
+        "-d",
+        "github.com/fullstack-lang/gongxlsx@HEAD",
+      ],
+      "group": "build"
+    },
+    {
+      "label": "00 - go get -d github.com/thomaspeugeot/tkv@HEAD",
+      "type": "shell",
+      "command": "go",
+      "args": [
+        "get",
+        "-d",
+        "github.com/thomaspeugeot/tkv@HEAD",
+      ],
+      "group": "build"
+    },
+    {
+      "label": "00 - go get -d github.com/fullstack-lang/gongxlsx@HEAD",
+      "type": "shell",
+      "command": "go",
+      "args": [
+        "get",
+        "-d",
+        "github.com/fullstack-lang/gongxlsx@HEAD",
+      ],
+      "group": "build"
+    },
+    {
+      "label": "00 - go get -d github.com/fullstack-lang/gongleaflet@HEAD",
+      "type": "shell",
+      "command": "go",
+      "args": [
+        "get",
+        "-d",
+        "github.com/fullstack-lang/gongleaflet@HEAD",
+      ],
+      "group": "build"
+    },
+    {
+      "label": "00 - go get -d github.com/fullstack-lang/gongleaflet@thomaspeugeot/issue5",
+      "type": "shell",
+      "command": "go",
+      "args": [
+        "get",
+        "-d",
+        "github.com/fullstack-lang/gongleaflet@thomaspeugeot/issue5",
+      ],
+      "group": "build"
+    },
+    {
+      "label": "00 - go mod tidy",
+      "type": "shell",
+      "command": "go",
+      "args": [
+        "mod",
+        "tidy"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "00 - go build",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/go/cmd/gongtenk"
+      },
+      "command": "go",
+      "args": [
+        "build"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "00 - docker rmi -f $(docker images -aq)",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "command": "docker rmi -f $(docker images -aq)",
+      "args": [],
+      "group": "build"
+    },
+    {
+      "label": "D00 - docker build --tag docker-gongtenk .",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "command": "docker",
+      "args": [
+        "build",
+        "--tag",
+        "docker-gongtenk",
+        "."
+      ],
+      "group": "build"
+    },
+    {
+      "label": "D01- docker image ls",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "command": "docker",
+      "args": [
+        "image",
+        "ls"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "D01 - docker tag docker-gongtenk europe-west1-docker.pkg.dev/laundromat-326906/gongtenk/docker-gongtenk:tag1",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "command": "docker",
+      "args": [
+        "tag",
+        "docker-gongtenk",
+        "europe-west1-docker.pkg.dev/laundromat-326906/gongtenk/docker-gongtenk:tag1"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "D03 - docker push europe-west1-docker.pkg.dev/laundromat-326906/gongtenk/docker-gongtenk:tag1",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "command": "docker",
+      "args": [
+        "push",
+        "europe-west1-docker.pkg.dev/laundromat-326906/gongtenk/docker-gongtenk:tag1"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "D04 - gcloud run deploy docker-gongtenk --image europe-west1-docker.pkg.dev/laundromat-326906/gongtenk/docker-gongtenk:tag1",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "command": "gcloud",
+      "args": [
+        "run",
+        "deploy",
+        "docker-gongtenk",
+        "--image",
+        "europe-west1-docker.pkg.dev/laundromat-326906/gongtenk/docker-gongtenk:tag1",
+        "--cpu",
+        "1",
+        "--concurrency",
+        "1",
+        "--max-instances",
+        "1",
+        "--memory",
+        "1024Mi",
+        "--port",
+        "8080",
+        "--clear-env-vars",
+        "--allow-unauthenticated"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "D01 - docker run -it docker-gongtenk sh",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "command": "docker",
+      "args": [
+        "run",
+        "-it",
+        "docker-gongtenk",
+        "sh"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "00 - docker run --publish 8080:8080 docker-gontenk",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "command": "docker",
+      "args": [
+        "run",
+        "--publish",
+        "8080:8080",
+        "docker-gongtenk",
+      ],
+      "group": "build"
+    },
+    {
+      "label": "00 - gcloud beta run domain-mappings create --domain tenktenk.org --service docker-gongtenk",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "command": "gcloud",
+      "args": [
+        "beta",
+        "run",
+        "domain-mappings",
+        "create",
+        "--domain",
+        "tenktenk.org",
+        "--service",
+        "docker-gongtenk"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "00 - gcloud beta run domain-mappings delete --domain tenktenk.org",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "command": "gcloud",
+      "args": [
+        "beta",
+        "run",
+        "domain-mappings",
+        "delete",
+        "--domain",
+        "tenktenk.org",
+      ],
+      "group": "build"
+    },
+    {
+      "label": "000 - Build & deploy",
+      "type": "shell",
+      "command": "echo Hello",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "01 - gongc gongtenk",
+        "D00 - docker build --tag docker-gongtenk .",
+        "D01 - docker tag docker-gongtenk europe-west1-docker.pkg.dev/laundromat-326906/gongtenk/docker-gongtenk:tag1",
+        "D03 - docker push europe-west1-docker.pkg.dev/laundromat-326906/gongtenk/docker-gongtenk:tag1",
+        "D04 - gcloud run deploy docker-gongtenk --image europe-west1-docker.pkg.dev/laundromat-326906/gongtenk/docker-gongtenk:tag1"
+      ],
+      "group": "build",
+    }
+  ]
+}

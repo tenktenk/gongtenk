@@ -1,0 +1,43 @@
+.control-settings {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 999;
+
+    margin-top: 1rem;
+    margin-right: 1rem;
+
+    div {
+        background-color: #fff;
+        box-shadow: var(--box-shadow-2);
+
+        padding: .75rem;
+        border-radius: .2rem;
+    }
+    
+    h4 {
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.75rem;
+        line-height: 2.5rem;
+    }
+
+    &__close {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    ul {
+        margin-top: .5rem; 
+        li {
+            font-family: 'Lato', serif;
+            font-size: 1.5rem;
+            line-height: 1.5rem;
+        }
+
+        & > *:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+    }
+}

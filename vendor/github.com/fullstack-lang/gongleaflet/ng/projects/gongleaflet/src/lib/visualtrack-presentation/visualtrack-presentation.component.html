@@ -1,0 +1,71 @@
+
+<div class="presentation__header" (click)="setEditorRouterOutlet(visualtrack.ID)">
+    <h1>VisualTrack's fields <span class="material-icons">edit</span></h1>
+</div>
+<table *ngIf="visualtrack" class="presentation__table mat-table">
+    <tr class="mat-header-row">
+        <th class="mat-header-cell">Name</th>
+        <th class="mat-header-cell">Value</th>
+    </tr>
+    <!-- insertion point for fields specific code -->
+    <tr class="mat-row">
+        <td class="mat-cell">Lat</td>
+        <td class="mat-cell">{{visualtrack.Lat}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">Lng</td>
+        <td class="mat-cell">{{visualtrack.Lng}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">Heading</td>
+        <td class="mat-cell">{{visualtrack.Heading}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">Level</td>
+        <td class="mat-cell">{{visualtrack.Level}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">Speed</td>
+        <td class="mat-cell">{{visualtrack.Speed}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">VerticalSpeed</td>
+        <td class="mat-cell">{{visualtrack.VerticalSpeed}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">Name</td>
+        <td class="mat-cell">{{visualtrack.Name}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">ColorEnum</td>
+        <td class="mat-cell">{{visualtrack.ColorEnum}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">LayerGroup</td>
+        <td class="mat-cell">{{visualtrack.LayerGroup ? visualtrack.LayerGroup.Name : ""}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">DivIcon</td>
+        <td class="mat-cell">{{visualtrack.DivIcon ? visualtrack.DivIcon.Name : ""}}</td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">DisplayTrackHistory</td>
+        <td class="mat-cell">
+            <mat-checkbox [checked]="visualtrack.DisplayTrackHistory" disabled=true>
+            </mat-checkbox>
+        </td>
+    </tr>
+    <tr class="mat-row">
+        <td class="mat-cell">DisplayLevelAndSpeed</td>
+        <td class="mat-cell">
+            <mat-checkbox [checked]="visualtrack.DisplayLevelAndSpeed" disabled=true>
+            </mat-checkbox>
+        </td>
+    </tr>
+</table>
+<!-- hack to force loading of mat table style an error is generated but it is a know angular issue https://github.com/angular/components/issues/10941 -->
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Position Column -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

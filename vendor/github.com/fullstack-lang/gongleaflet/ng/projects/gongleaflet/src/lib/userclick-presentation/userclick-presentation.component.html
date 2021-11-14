@@ -1,8 +1,8 @@
 
-<div class="presentation__header" (click)="setEditorRouterOutlet(individual.ID)">
-    <h1>Individual's fields <span class="material-icons">edit</span></h1>
+<div class="presentation__header" (click)="setEditorRouterOutlet(userclick.ID)">
+    <h1>UserClick's fields <span class="material-icons">edit</span></h1>
 </div>
-<table *ngIf="individual" class="presentation__table mat-table">
+<table *ngIf="userclick" class="presentation__table mat-table">
     <tr class="mat-header-row">
         <th class="mat-header-cell">Name</th>
         <th class="mat-header-cell">Value</th>
@@ -10,22 +10,19 @@
     <!-- insertion point for fields specific code -->
     <tr class="mat-row">
         <td class="mat-cell">Name</td>
-        <td class="mat-cell">{{individual.Name}}</td>
+        <td class="mat-cell">{{userclick.Name}}</td>
     </tr>
     <tr class="mat-row">
         <td class="mat-cell">Lat</td>
-        <td class="mat-cell">{{individual.Lat}}</td>
+        <td class="mat-cell">{{userclick.Lat}}</td>
     </tr>
     <tr class="mat-row">
         <td class="mat-cell">Lng</td>
-        <td class="mat-cell">{{individual.Lng}}</td>
+        <td class="mat-cell">{{userclick.Lng}}</td>
     </tr>
     <tr class="mat-row">
-        <td class="mat-cell">Twin</td>
-        <td class="mat-cell">
-            <mat-checkbox [checked]="individual.Twin" disabled=true>
-            </mat-checkbox>
-        </td>
+        <td class="mat-cell">TimeOfClick</td>
+        <td class="mat-cell">{{userclick.TimeOfClick}}</td>
     </tr>
 </table>
 <!-- hack to force loading of mat table style an error is generated but it is a know angular issue https://github.com/angular/components/issues/10941 -->

@@ -131,17 +131,6 @@
       "group": "build"
     },
     {
-      "label": "00 - go get -d github.com/fullstack-lang/gongleaflet@thomaspeugeot/issue5",
-      "type": "shell",
-      "command": "go",
-      "args": [
-        "get",
-        "-d",
-        "github.com/fullstack-lang/gongleaflet@thomaspeugeot/issue5",
-      ],
-      "group": "build"
-    },
-    {
       "label": "00 - go mod tidy",
       "type": "shell",
       "command": "go",

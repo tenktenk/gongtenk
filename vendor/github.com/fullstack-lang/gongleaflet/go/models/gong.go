@@ -33,6 +33,9 @@ type StageStruct struct { // insertion point for definition of arrays registerin
 	Markers           map[*Marker]struct{}
 	Markers_mapString map[string]*Marker
 
+	UserClicks           map[*UserClick]struct{}
+	UserClicks_mapString map[string]*UserClick
+
 	VLines           map[*VLine]struct{}
 	VLines_mapString map[string]*VLine
 
@@ -75,6 +78,8 @@ type BackRepoInterface interface {
 	CheckoutMapOptions(mapoptions *MapOptions)
 	CommitMarker(marker *Marker)
 	CheckoutMarker(marker *Marker)
+	CommitUserClick(userclick *UserClick)
+	CheckoutUserClick(userclick *UserClick)
 	CommitVLine(vline *VLine)
 	CheckoutVLine(vline *VLine)
 	CommitVisualTrack(visualtrack *VisualTrack)
@@ -105,6 +110,9 @@ var Stage StageStruct = StageStruct{ // insertion point for array initiatialisat
 
 	Markers:           make(map[*Marker]struct{}),
 	Markers_mapString: make(map[string]*Marker),
+
+	UserClicks:           make(map[*UserClick]struct{}),
+	UserClicks_mapString: make(map[string]*UserClick),
 
 	VLines:           make(map[*VLine]struct{}),
 	VLines_mapString: make(map[string]*VLine),
@@ -870,6 +878,108 @@ func DeleteORMMarker(marker *Marker) {
 	}
 }
 
+func (stage *StageStruct) getUserClickOrderedStructWithNameField() []*UserClick {
+	// have alphabetical order generation
+	userclickOrdered := []*UserClick{}
+	for userclick := range stage.UserClicks {
+		userclickOrdered = append(userclickOrdered, userclick)
+	}
+	sort.Slice(userclickOrdered[:], func(i, j int) bool {
+		return userclickOrdered[i].Name < userclickOrdered[j].Name
+	})
+	return userclickOrdered
+}
+
+// Stage puts userclick to the model stage
+func (userclick *UserClick) Stage() *UserClick {
+	Stage.UserClicks[userclick] = __member
+	Stage.UserClicks_mapString[userclick.Name] = userclick
+
+	return userclick
+}
+
+// Unstage removes userclick off the model stage
+func (userclick *UserClick) Unstage() *UserClick {
+	delete(Stage.UserClicks, userclick)
+	delete(Stage.UserClicks_mapString, userclick.Name)
+	return userclick
+}
+
+// commit userclick to the back repo (if it is already staged)
+func (userclick *UserClick) Commit() *UserClick {
+	if _, ok := Stage.UserClicks[userclick]; ok {
+		if Stage.BackRepo != nil {
+			Stage.BackRepo.CommitUserClick(userclick)
+		}
+	}
+	return userclick
+}
+
+// Checkout userclick to the back repo (if it is already staged)
+func (userclick *UserClick) Checkout() *UserClick {
+	if _, ok := Stage.UserClicks[userclick]; ok {
+		if Stage.BackRepo != nil {
+			Stage.BackRepo.CheckoutUserClick(userclick)
+		}
+	}
+	return userclick
+}
+
+//
+// Legacy, to be deleted
+//
+
+// StageCopy appends a copy of userclick to the model stage
+func (userclick *UserClick) StageCopy() *UserClick {
+	_userclick := new(UserClick)
+	*_userclick = *userclick
+	_userclick.Stage()
+	return _userclick
+}
+
+// StageAndCommit appends userclick to the model stage and commit to the orm repo
+func (userclick *UserClick) StageAndCommit() *UserClick {
+	userclick.Stage()
+	if Stage.AllModelsStructCreateCallback != nil {
+		Stage.AllModelsStructCreateCallback.CreateORMUserClick(userclick)
+	}
+	return userclick
+}
+
+// DeleteStageAndCommit appends userclick to the model stage and commit to the orm repo
+func (userclick *UserClick) DeleteStageAndCommit() *UserClick {
+	userclick.Unstage()
+	DeleteORMUserClick(userclick)
+	return userclick
+}
+
+// StageCopyAndCommit appends a copy of userclick to the model stage and commit to the orm repo
+func (userclick *UserClick) StageCopyAndCommit() *UserClick {
+	_userclick := new(UserClick)
+	*_userclick = *userclick
+	_userclick.Stage()
+	if Stage.AllModelsStructCreateCallback != nil {
+		Stage.AllModelsStructCreateCallback.CreateORMUserClick(userclick)
+	}
+	return _userclick
+}
+
+// CreateORMUserClick enables dynamic staging of a UserClick instance
+func CreateORMUserClick(userclick *UserClick) {
+	userclick.Stage()
+	if Stage.AllModelsStructCreateCallback != nil {
+		Stage.AllModelsStructCreateCallback.CreateORMUserClick(userclick)
+	}
+}
+
+// DeleteORMUserClick enables dynamic staging of a UserClick instance
+func DeleteORMUserClick(userclick *UserClick) {
+	userclick.Unstage()
+	if Stage.AllModelsStructDeleteCallback != nil {
+		Stage.AllModelsStructDeleteCallback.DeleteORMUserClick(userclick)
+	}
+}
+
 func (stage *StageStruct) getVLineOrderedStructWithNameField() []*VLine {
 	// have alphabetical order generation
 	vlineOrdered := []*VLine{}
@@ -1083,6 +1193,7 @@ type AllModelsStructCreateInterface interface { // insertion point for Callbacks
 	CreateORMLayerGroupUse(LayerGroupUse *LayerGroupUse)
 	CreateORMMapOptions(MapOptions *MapOptions)
 	CreateORMMarker(Marker *Marker)
+	CreateORMUserClick(UserClick *UserClick)
 	CreateORMVLine(VLine *VLine)
 	CreateORMVisualTrack(VisualTrack *VisualTrack)
 }
@@ -1095,6 +1206,7 @@ type AllModelsStructDeleteInterface interface { // insertion point for Callbacks
 	DeleteORMLayerGroupUse(LayerGroupUse *LayerGroupUse)
 	DeleteORMMapOptions(MapOptions *MapOptions)
 	DeleteORMMarker(Marker *Marker)
+	DeleteORMUserClick(UserClick *UserClick)
 	DeleteORMVLine(VLine *VLine)
 	DeleteORMVisualTrack(VisualTrack *VisualTrack)
 }
@@ -1120,6 +1232,9 @@ func (stage *StageStruct) Reset() { // insertion point for array reset
 
 	stage.Markers = make(map[*Marker]struct{})
 	stage.Markers_mapString = make(map[string]*Marker)
+
+	stage.UserClicks = make(map[*UserClick]struct{})
+	stage.UserClicks_mapString = make(map[string]*UserClick)
 
 	stage.VLines = make(map[*VLine]struct{})
 	stage.VLines_mapString = make(map[string]*VLine)
@@ -1150,6 +1265,9 @@ func (stage *StageStruct) Nil() { // insertion point for array nil
 
 	stage.Markers = nil
 	stage.Markers_mapString = nil
+
+	stage.UserClicks = nil
+	stage.UserClicks_mapString = nil
 
 	stage.VLines = nil
 	stage.VLines_mapString = nil

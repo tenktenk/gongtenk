@@ -14,8 +14,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 const allowMultiSelect = true;
 
 import { Router, RouterState } from '@angular/router';
-import { IndividualDB } from '../individual-db'
-import { IndividualService } from '../individual.service'
+import { UserClickDB } from '../userclick-db'
+import { UserClickService } from '../userclick.service'
 
 // TableComponent is initilizaed from different routes
 // TableComponentMode detail different cases 
@@ -27,24 +27,24 @@ enum TableComponentMode {
 
 // generated table component
 @Component({
-  selector: 'app-individualstable',
-  templateUrl: './individuals-table.component.html',
-  styleUrls: ['./individuals-table.component.css'],
+  selector: 'app-userclickstable',
+  templateUrl: './userclicks-table.component.html',
+  styleUrls: ['./userclicks-table.component.css'],
 })
-export class IndividualsTableComponent implements OnInit {
+export class UserClicksTableComponent implements OnInit {
 
   // mode at invocation
   mode: TableComponentMode = TableComponentMode.DISPLAY_MODE
 
-  // used if the component is called as a selection component of Individual instances
-  selection: SelectionModel<IndividualDB> = new (SelectionModel)
-  initialSelection = new Array<IndividualDB>()
+  // used if the component is called as a selection component of UserClick instances
+  selection: SelectionModel<UserClickDB> = new (SelectionModel)
+  initialSelection = new Array<UserClickDB>()
 
   // the data source for the table
-  individuals: IndividualDB[] = []
-  matTableDataSource: MatTableDataSource<IndividualDB> = new (MatTableDataSource)
+  userclicks: UserClickDB[] = []
+  matTableDataSource: MatTableDataSource<UserClickDB> = new (MatTableDataSource)
 
-  // front repo, that will be referenced by this.individuals
+  // front repo, that will be referenced by this.userclicks
   frontRepo: FrontRepo = new (FrontRepo)
 
   // displayedColumns is referenced by the MatTable component for specify what columns
@@ -60,23 +60,23 @@ export class IndividualsTableComponent implements OnInit {
   ngAfterViewInit() {
 
     // enable sorting on all fields (including pointers and reverse pointer)
-    this.matTableDataSource.sortingDataAccessor = (individualDB: IndividualDB, property: string) => {
+    this.matTableDataSource.sortingDataAccessor = (userclickDB: UserClickDB, property: string) => {
       switch (property) {
         case 'ID':
-          return individualDB.ID
+          return userclickDB.ID
 
         // insertion point for specific sorting accessor
         case 'Name':
-          return individualDB.Name;
+          return userclickDB.Name;
 
         case 'Lat':
-          return individualDB.Lat;
+          return userclickDB.Lat;
 
         case 'Lng':
-          return individualDB.Lng;
+          return userclickDB.Lng;
 
-        case 'Twin':
-          return individualDB.Twin?"true":"false";
+        case 'TimeOfClick':
+          return userclickDB.TimeOfClick.getDate();
 
         default:
           console.assert(false, "Unknown field")
@@ -85,16 +85,16 @@ export class IndividualsTableComponent implements OnInit {
     };
 
     // enable filtering on all fields (including pointers and reverse pointer, which is not done by default)
-    this.matTableDataSource.filterPredicate = (individualDB: IndividualDB, filter: string) => {
+    this.matTableDataSource.filterPredicate = (userclickDB: UserClickDB, filter: string) => {
 
       // filtering is based on finding a lower case filter into a concatenated string
-      // the individualDB properties
+      // the userclickDB properties
       let mergedContent = ""
 
       // insertion point for merging of fields
-      mergedContent += individualDB.Name.toLowerCase()
-      mergedContent += individualDB.Lat.toString()
-      mergedContent += individualDB.Lng.toString()
+      mergedContent += userclickDB.Name.toLowerCase()
+      mergedContent += userclickDB.Lat.toString()
+      mergedContent += userclickDB.Lng.toString()
 
       let isSelected = mergedContent.includes(filter.toLowerCase())
       return isSelected
@@ -110,11 +110,11 @@ export class IndividualsTableComponent implements OnInit {
   }
 
   constructor(
-    private individualService: IndividualService,
+    private userclickService: UserClickService,
     private frontRepoService: FrontRepoService,
 
-    // not null if the component is called as a selection component of individual instances
-    public dialogRef: MatDialogRef<IndividualsTableComponent>,
+    // not null if the component is called as a selection component of userclick instances
+    public dialogRef: MatDialogRef<UserClicksTableComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: DialogData,
 
     private router: Router,
@@ -136,10 +136,10 @@ export class IndividualsTableComponent implements OnInit {
     }
 
     // observable for changes in structs
-    this.individualService.IndividualServiceChanged.subscribe(
+    this.userclickService.UserClickServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
-          this.getIndividuals()
+          this.getUserClicks()
         }
       }
     )
@@ -148,105 +148,105 @@ export class IndividualsTableComponent implements OnInit {
         "Name",
         "Lat",
         "Lng",
-        "Twin",
+        "TimeOfClick",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
         "Lat",
         "Lng",
-        "Twin",
+        "TimeOfClick",
       ]
-      this.selection = new SelectionModel<IndividualDB>(allowMultiSelect, this.initialSelection);
+      this.selection = new SelectionModel<UserClickDB>(allowMultiSelect, this.initialSelection);
     }
 
   }
 
   ngOnInit(): void {
-    this.getIndividuals()
-    this.matTableDataSource = new MatTableDataSource(this.individuals)
+    this.getUserClicks()
+    this.matTableDataSource = new MatTableDataSource(this.userclicks)
   }
 
-  getIndividuals(): void {
+  getUserClicks(): void {
     this.frontRepoService.pull().subscribe(
       frontRepo => {
         this.frontRepo = frontRepo
 
-        this.individuals = this.frontRepo.Individuals_array;
+        this.userclicks = this.frontRepo.UserClicks_array;
 
         // insertion point for variables Recoveries
 
         // in case the component is called as a selection component
         if (this.mode == TableComponentMode.ONE_MANY_ASSOCIATION_MODE) {
-          for (let individual of this.individuals) {
+          for (let userclick of this.userclicks) {
             let ID = this.dialogData.ID
-            let revPointer = individual[this.dialogData.ReversePointer as keyof IndividualDB] as unknown as NullInt64
+            let revPointer = userclick[this.dialogData.ReversePointer as keyof UserClickDB] as unknown as NullInt64
             if (revPointer.Int64 == ID) {
-              this.initialSelection.push(individual)
+              this.initialSelection.push(userclick)
             }
-            this.selection = new SelectionModel<IndividualDB>(allowMultiSelect, this.initialSelection);
+            this.selection = new SelectionModel<UserClickDB>(allowMultiSelect, this.initialSelection);
           }
         }
 
         if (this.mode == TableComponentMode.MANY_MANY_ASSOCIATION_MODE) {
 
-          let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, IndividualDB>
+          let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, UserClickDB>
           let sourceInstance = mapOfSourceInstances.get(this.dialogData.ID)!
 
-          let sourceField = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]! as unknown as IndividualDB[]
+          let sourceField = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]! as unknown as UserClickDB[]
           for (let associationInstance of sourceField) {
-            let individual = associationInstance[this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as IndividualDB
-            this.initialSelection.push(individual)
+            let userclick = associationInstance[this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as UserClickDB
+            this.initialSelection.push(userclick)
           }
 
-          this.selection = new SelectionModel<IndividualDB>(allowMultiSelect, this.initialSelection);
+          this.selection = new SelectionModel<UserClickDB>(allowMultiSelect, this.initialSelection);
         }
 
         // update the mat table data source
-        this.matTableDataSource.data = this.individuals
+        this.matTableDataSource.data = this.userclicks
       }
     )
   }
 
-  // newIndividual initiate a new individual
-  // create a new Individual objet
-  newIndividual() {
+  // newUserClick initiate a new userclick
+  // create a new UserClick objet
+  newUserClick() {
   }
 
-  deleteIndividual(individualID: number, individual: IndividualDB) {
-    // list of individuals is truncated of individual before the delete
-    this.individuals = this.individuals.filter(h => h !== individual);
+  deleteUserClick(userclickID: number, userclick: UserClickDB) {
+    // list of userclicks is truncated of userclick before the delete
+    this.userclicks = this.userclicks.filter(h => h !== userclick);
 
-    this.individualService.deleteIndividual(individualID).subscribe(
-      individual => {
-        this.individualService.IndividualServiceChanged.next("delete")
+    this.userclickService.deleteUserClick(userclickID).subscribe(
+      userclick => {
+        this.userclickService.UserClickServiceChanged.next("delete")
       }
     );
   }
 
-  editIndividual(individualID: number, individual: IndividualDB) {
+  editUserClick(userclickID: number, userclick: UserClickDB) {
 
   }
 
-  // display individual in router
-  displayIndividualInRouter(individualID: number) {
-    this.router.navigate(["github_com_tenktenk_gongtenk_go-" + "individual-display", individualID])
+  // display userclick in router
+  displayUserClickInRouter(userclickID: number) {
+    this.router.navigate(["github_com_fullstack_lang_gongleaflet_go-" + "userclick-display", userclickID])
   }
 
   // set editor outlet
-  setEditorRouterOutlet(individualID: number) {
+  setEditorRouterOutlet(userclickID: number) {
     this.router.navigate([{
       outlets: {
-        github_com_tenktenk_gongtenk_go_editor: ["github_com_tenktenk_gongtenk_go-" + "individual-detail", individualID]
+        github_com_fullstack_lang_gongleaflet_go_editor: ["github_com_fullstack_lang_gongleaflet_go-" + "userclick-detail", userclickID]
       }
     }]);
   }
 
   // set presentation outlet
-  setPresentationRouterOutlet(individualID: number) {
+  setPresentationRouterOutlet(userclickID: number) {
     this.router.navigate([{
       outlets: {
-        github_com_tenktenk_gongtenk_go_presentation: ["github_com_tenktenk_gongtenk_go-" + "individual-presentation", individualID]
+        github_com_fullstack_lang_gongleaflet_go_presentation: ["github_com_fullstack_lang_gongleaflet_go-" + "userclick-presentation", userclickID]
       }
     }]);
   }
@@ -254,7 +254,7 @@ export class IndividualsTableComponent implements OnInit {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.individuals.length;
+    const numRows = this.userclicks.length;
     return numSelected === numRows;
   }
 
@@ -262,39 +262,39 @@ export class IndividualsTableComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.individuals.forEach(row => this.selection.select(row));
+      this.userclicks.forEach(row => this.selection.select(row));
   }
 
   save() {
 
     if (this.mode == TableComponentMode.ONE_MANY_ASSOCIATION_MODE) {
 
-      let toUpdate = new Set<IndividualDB>()
+      let toUpdate = new Set<UserClickDB>()
 
-      // reset all initial selection of individual that belong to individual
-      for (let individual of this.initialSelection) {
-        let index = individual[this.dialogData.ReversePointer as keyof IndividualDB] as unknown as NullInt64
+      // reset all initial selection of userclick that belong to userclick
+      for (let userclick of this.initialSelection) {
+        let index = userclick[this.dialogData.ReversePointer as keyof UserClickDB] as unknown as NullInt64
         index.Int64 = 0
         index.Valid = true
-        toUpdate.add(individual)
+        toUpdate.add(userclick)
 
       }
 
-      // from selection, set individual that belong to individual
-      for (let individual of this.selection.selected) {
+      // from selection, set userclick that belong to userclick
+      for (let userclick of this.selection.selected) {
         let ID = this.dialogData.ID as number
-        let reversePointer = individual[this.dialogData.ReversePointer as keyof IndividualDB] as unknown as NullInt64
+        let reversePointer = userclick[this.dialogData.ReversePointer as keyof UserClickDB] as unknown as NullInt64
         reversePointer.Int64 = ID
         reversePointer.Valid = true
-        toUpdate.add(individual)
+        toUpdate.add(userclick)
       }
 
 
-      // update all individual (only update selection & initial selection)
-      for (let individual of toUpdate) {
-        this.individualService.updateIndividual(individual)
-          .subscribe(individual => {
-            this.individualService.IndividualServiceChanged.next("update")
+      // update all userclick (only update selection & initial selection)
+      for (let userclick of toUpdate) {
+        this.userclickService.updateUserClick(userclick)
+          .subscribe(userclick => {
+            this.userclickService.UserClickServiceChanged.next("update")
           });
       }
     }
@@ -302,26 +302,26 @@ export class IndividualsTableComponent implements OnInit {
     if (this.mode == TableComponentMode.MANY_MANY_ASSOCIATION_MODE) {
 
       // get the source instance via the map of instances in the front repo
-      let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, IndividualDB>
+      let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, UserClickDB>
       let sourceInstance = mapOfSourceInstances.get(this.dialogData.ID)!
 
       // First, parse all instance of the association struct and remove the instance
       // that have unselect
-      let unselectedIndividual = new Set<number>()
-      for (let individual of this.initialSelection) {
-        if (this.selection.selected.includes(individual)) {
-          // console.log("individual " + individual.Name + " is still selected")
+      let unselectedUserClick = new Set<number>()
+      for (let userclick of this.initialSelection) {
+        if (this.selection.selected.includes(userclick)) {
+          // console.log("userclick " + userclick.Name + " is still selected")
         } else {
-          console.log("individual " + individual.Name + " has been unselected")
-          unselectedIndividual.add(individual.ID)
-          console.log("is unselected " + unselectedIndividual.has(individual.ID))
+          console.log("userclick " + userclick.Name + " has been unselected")
+          unselectedUserClick.add(userclick.ID)
+          console.log("is unselected " + unselectedUserClick.has(userclick.ID))
         }
       }
 
       // delete the association instance
       let associationInstance = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]
-      let individual = associationInstance![this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as IndividualDB
-      if (unselectedIndividual.has(individual.ID)) {
+      let userclick = associationInstance![this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as UserClickDB
+      if (unselectedUserClick.has(userclick.ID)) {
         this.frontRepoService.deleteService(this.dialogData.IntermediateStruct, associationInstance)
 
 
@@ -329,38 +329,38 @@ export class IndividualsTableComponent implements OnInit {
 
       // is the source array is empty create it
       if (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] == undefined) {
-        (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] as unknown as Array<IndividualDB>) = new Array<IndividualDB>()
+        (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] as unknown as Array<UserClickDB>) = new Array<UserClickDB>()
       }
 
       // second, parse all instance of the selected
       if (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]) {
         this.selection.selected.forEach(
-          individual => {
-            if (!this.initialSelection.includes(individual)) {
-              // console.log("individual " + individual.Name + " has been added to the selection")
+          userclick => {
+            if (!this.initialSelection.includes(userclick)) {
+              // console.log("userclick " + userclick.Name + " has been added to the selection")
 
               let associationInstance = {
-                Name: sourceInstance["Name"] + "-" + individual.Name,
+                Name: sourceInstance["Name"] + "-" + userclick.Name,
               }
 
               let index = associationInstance[this.dialogData.IntermediateStructField + "ID" as keyof typeof associationInstance] as unknown as NullInt64
-              index.Int64 = individual.ID
+              index.Int64 = userclick.ID
               index.Valid = true
 
               let indexDB = associationInstance[this.dialogData.IntermediateStructField + "DBID" as keyof typeof associationInstance] as unknown as NullInt64
-              indexDB.Int64 = individual.ID
+              indexDB.Int64 = userclick.ID
               index.Valid = true
 
               this.frontRepoService.postService(this.dialogData.IntermediateStruct, associationInstance)
 
             } else {
-              // console.log("individual " + individual.Name + " is still selected")
+              // console.log("userclick " + userclick.Name + " is still selected")
             }
           }
         )
       }
 
-      // this.selection = new SelectionModel<IndividualDB>(allowMultiSelect, this.initialSelection);
+      // this.selection = new SelectionModel<UserClickDB>(allowMultiSelect, this.initialSelection);
     }
 
     // why pizza ?

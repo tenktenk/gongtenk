@@ -3,7 +3,7 @@
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
     </mat-form-field>
-    <h1 *ngIf="dialogData">individual</h1>
+    <h1 *ngIf="dialogData">userclick</h1>
     <table class="table" mat-table [dataSource]="matTableDataSource" matSort>
         <!-- Checkbox Column -->
         <ng-container matColumnDef="select" sticky>
@@ -21,48 +21,48 @@
         <!-- -->
         <ng-container matColumnDef="Name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-            <td mat-cell *matCellDef="let Individual">
-                {{Individual.Name}}
+            <td mat-cell *matCellDef="let UserClick">
+                {{UserClick.Name}}
             </td>
         </ng-container>
         <!-- -->
         <ng-container matColumnDef="Lat">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Lat </th>
-            <td mat-cell *matCellDef="let Individual">
-                {{Individual.Lat.toPrecision(5)}}
+            <td mat-cell *matCellDef="let UserClick">
+                {{UserClick.Lat.toPrecision(5)}}
             </td>
         </ng-container>
         <!-- -->
         <ng-container matColumnDef="Lng">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Lng </th>
-            <td mat-cell *matCellDef="let Individual">
-                {{Individual.Lng.toPrecision(5)}}
+            <td mat-cell *matCellDef="let UserClick">
+                {{UserClick.Lng.toPrecision(5)}}
             </td>
         </ng-container>
         <!-- -->
-        <ng-container matColumnDef="Twin">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Twin </th>
-            <td mat-cell *matCellDef="let Individual">
-                <mat-checkbox [checked]="Individual.Twin" disabled=true></mat-checkbox>
+        <ng-container matColumnDef="TimeOfClick">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> TimeOfClick </th>
+            <td mat-cell *matCellDef="let UserClick">
+                {{UserClick.TimeOfClick}}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="ID" sticky>
             <th mat-header-cell *matHeaderCellDef mat-sort-header> ID. </th>
-            <td mat-cell *matCellDef="let Individual"> {{Individual.ID}} </td>
+            <td mat-cell *matCellDef="let UserClick"> {{UserClick.ID}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Edit">
             <th mat-header-cell *matHeaderCellDef> Edit </th>
-            <td mat-cell *matCellDef="let individual;  let j = index;">
-                <i class="material-icons" [ngStyle]="{'color':'rgba(0,0,0,.50)'}" (click)="setEditorRouterOutlet(individual.ID)">edit</i>
+            <td mat-cell *matCellDef="let userclick;  let j = index;">
+                <i class="material-icons" [ngStyle]="{'color':'rgba(0,0,0,.50)'}" (click)="setEditorRouterOutlet(userclick.ID)">edit</i>
             </td>
         </ng-container>
 
         <ng-container matColumnDef="Delete">
             <th mat-header-cell *matHeaderCellDef> Delete </th>
-            <td mat-cell *matCellDef="let individual;  let j = index;">
-                <i class="material-icons" [ngStyle]="{'color':'rgba(0,0,0,.50)'}" (click)="deleteIndividual(individual.ID, individual)">delete</i>
+            <td mat-cell *matCellDef="let userclick;  let j = index;">
+                <i class="material-icons" [ngStyle]="{'color':'rgba(0,0,0,.50)'}" (click)="deleteUserClick(userclick.ID, userclick)">delete</i>
             </td>
         </ng-container>
 

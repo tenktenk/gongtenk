@@ -13,6 +13,8 @@
   import { MapOptionsSortingComponent } from './mapoptions-sorting/mapoptions-sorting.component'
   import { MarkersTableComponent } from './markers-table/markers-table.component'
   import { MarkerSortingComponent } from './marker-sorting/marker-sorting.component'
+  import { UserClicksTableComponent } from './userclicks-table/userclicks-table.component'
+  import { UserClickSortingComponent } from './userclick-sorting/userclick-sorting.component'
   import { VLinesTableComponent } from './vlines-table/vlines-table.component'
   import { VLineSortingComponent } from './vline-sorting/vline-sorting.component'
   import { VisualTracksTableComponent } from './visualtracks-table/visualtracks-table.component'
@@ -33,6 +35,8 @@
   export const MapOfMapOptionsSortingComponents: Map<string, any> = new Map([["MapOptionsSortingComponent", MapOptionsSortingComponent],])
   export const MapOfMarkersComponents: Map<string, any> = new Map([["MarkersTableComponent", MarkersTableComponent],])
   export const MapOfMarkerSortingComponents: Map<string, any> = new Map([["MarkerSortingComponent", MarkerSortingComponent],])
+  export const MapOfUserClicksComponents: Map<string, any> = new Map([["UserClicksTableComponent", UserClicksTableComponent],])
+  export const MapOfUserClickSortingComponents: Map<string, any> = new Map([["UserClickSortingComponent", UserClickSortingComponent],])
   export const MapOfVLinesComponents: Map<string, any> = new Map([["VLinesTableComponent", VLinesTableComponent],])
   export const MapOfVLineSortingComponents: Map<string, any> = new Map([["VLineSortingComponent", VLineSortingComponent],])
   export const MapOfVisualTracksComponents: Map<string, any> = new Map([["VisualTracksTableComponent", VisualTracksTableComponent],])
@@ -50,6 +54,7 @@ export const MapOfComponents: Map<string, any> =
       ["LayerGroupUse", MapOfLayerGroupUsesComponents],
       ["MapOptions", MapOfMapOptionssComponents],
       ["Marker", MapOfMarkersComponents],
+      ["UserClick", MapOfUserClicksComponents],
       ["VLine", MapOfVLinesComponents],
       ["VisualTrack", MapOfVisualTracksComponents],
     ]
@@ -67,6 +72,7 @@ export const MapOfSortingComponents: Map<string, any> =
       ["LayerGroupUse", MapOfLayerGroupUseSortingComponents],
       ["MapOptions", MapOfMapOptionsSortingComponents],
       ["Marker", MapOfMarkerSortingComponents],
+      ["UserClick", MapOfUserClickSortingComponents],
       ["VLine", MapOfVLineSortingComponents],
       ["VisualTrack", MapOfVisualTrackSortingComponents],
     ]

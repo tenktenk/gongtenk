@@ -92,6 +92,13 @@ func RegisterControllers(r *gin.Engine) {
 		v1.PUT("/v1/markers/:id", UpdateMarker)
 		v1.DELETE("/v1/markers/:id", DeleteMarker)
 
+		v1.GET("/v1/userclicks", GetUserClicks)
+		v1.GET("/v1/userclicks/:id", GetUserClick)
+		v1.POST("/v1/userclicks", PostUserClick)
+		v1.PATCH("/v1/userclicks/:id", UpdateUserClick)
+		v1.PUT("/v1/userclicks/:id", UpdateUserClick)
+		v1.DELETE("/v1/userclicks/:id", DeleteUserClick)
+
 		v1.GET("/v1/vlines", GetVLines)
 		v1.GET("/v1/vlines/:id", GetVLine)
 		v1.POST("/v1/vlines", PostVLine)

@@ -63,6 +63,13 @@ export * from './lib/markers-table/markers-table.component'
 export * from './lib/marker-db'
 export * from './lib/marker.service'
 
+export * from './lib/userclick-detail/userclick-detail.component'
+export * from './lib/userclick-presentation/userclick-presentation.component'
+export * from './lib/userclick-sorting/userclick-sorting.component'
+export * from './lib/userclicks-table/userclicks-table.component'
+export * from './lib/userclick-db'
+export * from './lib/userclick.service'
+
 export * from './lib/vline-detail/vline-detail.component'
 export * from './lib/vline-presentation/vline-presentation.component'
 export * from './lib/vline-sorting/vline-sorting.component'

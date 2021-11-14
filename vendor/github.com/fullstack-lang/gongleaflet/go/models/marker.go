@@ -1,5 +1,7 @@
 package models
 
+import "log"
+
 // Marker provides all necessary elements to the front to display a track
 //
 // L.Marker is used to display clickable/draggable icons on the map. Extends Layer.
@@ -39,4 +41,22 @@ func (marker *Marker) UpdateMarker() {
 		marker.LayerGroup =
 			computeLayerGroupFromLayerGroupName(marker.MarkerInteface.GetLayerGroupName())
 	}
+}
+
+// attach visual center to center
+func AttachMarker(markerInterface MarkerInterface,
+	colorEnum ColorEnum,
+	divIcon *DivIcon) (marker *Marker) {
+
+	// check icon is present
+	if divIcon == nil {
+		log.Fatal("nil visual icon")
+	}
+	marker = new(Marker).Stage()
+	marker.MarkerInteface = markerInterface
+	marker.ColorEnum = colorEnum
+	marker.DivIcon = divIcon
+	marker.UpdateMarker()
+
+	return
 }

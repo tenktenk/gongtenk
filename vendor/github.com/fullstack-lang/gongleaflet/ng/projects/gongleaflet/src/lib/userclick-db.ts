@@ -3,7 +3,7 @@
 // usefull for managing pointer ID values that can be nullable
 import { NullInt64 } from './null-int64'
 
-export class IndividualDB {
+export class UserClickDB {
 	CreatedAt?: string
 	DeletedAt?: string
 	ID: number = 0
@@ -12,7 +12,7 @@ export class IndividualDB {
 	Name: string = ""
 	Lat: number = 0
 	Lng: number = 0
-	Twin: boolean = false
+	TimeOfClick: Date = new Date
 
 	// insertion point for other declarations
 }

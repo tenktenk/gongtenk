@@ -8,6 +8,7 @@ import 'leaflet-rotatedmarker'
 import * as gongleaflet from 'gongleaflet';
 import * as manageLeafletItems from './manage-leaflet-items'
 import { dotBlur } from '../../assets/icons/dot_blur'
+import { UserClickDB } from 'gongleaflet'
 
 export const DEFAULT_ICON_SIZE = 60
 
@@ -92,12 +93,15 @@ export class MapoptionsComponent implements OnInit {
     '#004E92'
   );
 
+  clickNumber: number = 0
+
   constructor(
     public frontRepoService: gongleaflet.FrontRepoService,
     private visualTrackService: gongleaflet.VisualTrackService,
     private lineService: gongleaflet.VLineService,
     private markerService: gongleaflet.MarkerService,
     private layerGroupUseService: gongleaflet.LayerGroupUseService,
+    private userClickService: gongleaflet.UserClickService,
     private commitNbService: gongleaflet.CommitNbService,
     private pushFromFrontService: gongleaflet.PushFromFrontNbService,
     private router: Router,
@@ -130,6 +134,12 @@ export class MapoptionsComponent implements OnInit {
       if (this.userInterfactionCallbackFunction) {
         this.userInterfactionCallbackFunction(e.latlng.lat, e.latlng.lng)
       }
+
+      let userClick = new UserClickDB
+      userClick.Name = "Click !" + this.clickNumber
+      this.clickNumber = this.clickNumber + 1
+      userClick.Lat = e.latlng.lat
+      userClick.Lng = e.latlng.lng
     }
   }
 

@@ -25,6 +25,9 @@ import { MapOptionsService } from './mapoptions.service'
 import { MarkerDB } from './marker-db'
 import { MarkerService } from './marker.service'
 
+import { UserClickDB } from './userclick-db'
+import { UserClickService } from './userclick.service'
+
 import { VLineDB } from './vline-db'
 import { VLineService } from './vline.service'
 
@@ -55,6 +58,9 @@ export class FrontRepo { // insertion point sub template
   Markers_array = new Array<MarkerDB>(); // array of repo instances
   Markers = new Map<number, MarkerDB>(); // map of repo instances
   Markers_batch = new Map<number, MarkerDB>(); // same but only in last GET (for finding repo instances to delete)
+  UserClicks_array = new Array<UserClickDB>(); // array of repo instances
+  UserClicks = new Map<number, UserClickDB>(); // map of repo instances
+  UserClicks_batch = new Map<number, UserClickDB>(); // same but only in last GET (for finding repo instances to delete)
   VLines_array = new Array<VLineDB>(); // array of repo instances
   VLines = new Map<number, VLineDB>(); // map of repo instances
   VLines_batch = new Map<number, VLineDB>(); // same but only in last GET (for finding repo instances to delete)
@@ -126,6 +132,7 @@ export class FrontRepoService {
     private layergroupuseService: LayerGroupUseService,
     private mapoptionsService: MapOptionsService,
     private markerService: MarkerService,
+    private userclickService: UserClickService,
     private vlineService: VLineService,
     private visualtrackService: VisualTrackService,
   ) { }
@@ -165,6 +172,7 @@ export class FrontRepoService {
     Observable<LayerGroupUseDB[]>,
     Observable<MapOptionsDB[]>,
     Observable<MarkerDB[]>,
+    Observable<UserClickDB[]>,
     Observable<VLineDB[]>,
     Observable<VisualTrackDB[]>,
   ] = [ // insertion point sub template 
@@ -175,6 +183,7 @@ export class FrontRepoService {
       this.layergroupuseService.getLayerGroupUses(),
       this.mapoptionsService.getMapOptionss(),
       this.markerService.getMarkers(),
+      this.userclickService.getUserClicks(),
       this.vlineService.getVLines(),
       this.visualtrackService.getVisualTracks(),
     ];
@@ -199,6 +208,7 @@ export class FrontRepoService {
             layergroupuses_,
             mapoptionss_,
             markers_,
+            userclicks_,
             vlines_,
             visualtracks_,
           ]) => {
@@ -218,6 +228,8 @@ export class FrontRepoService {
             mapoptionss = mapoptionss_ as MapOptionsDB[]
             var markers: MarkerDB[]
             markers = markers_ as MarkerDB[]
+            var userclicks: UserClickDB[]
+            userclicks = userclicks_ as UserClickDB[]
             var vlines: VLineDB[]
             vlines = vlines_ as VLineDB[]
             var visualtracks: VisualTrackDB[]
@@ -458,6 +470,39 @@ export class FrontRepoService {
             });
 
             // init the array
+            FrontRepoSingloton.UserClicks_array = userclicks
+
+            // clear the map that counts UserClick in the GET
+            FrontRepoSingloton.UserClicks_batch.clear()
+
+            userclicks.forEach(
+              userclick => {
+                FrontRepoSingloton.UserClicks.set(userclick.ID, userclick)
+                FrontRepoSingloton.UserClicks_batch.set(userclick.ID, userclick)
+              }
+            )
+
+            // clear userclicks that are absent from the batch
+            FrontRepoSingloton.UserClicks.forEach(
+              userclick => {
+                if (FrontRepoSingloton.UserClicks_batch.get(userclick.ID) == undefined) {
+                  FrontRepoSingloton.UserClicks.delete(userclick.ID)
+                }
+              }
+            )
+
+            // sort UserClicks_array array
+            FrontRepoSingloton.UserClicks_array.sort((t1, t2) => {
+              if (t1.Name > t2.Name) {
+                return 1;
+              }
+              if (t1.Name < t2.Name) {
+                return -1;
+              }
+              return 0;
+            });
+
+            // init the array
             FrontRepoSingloton.VLines_array = vlines
 
             // clear the map that counts VLine in the GET
@@ -613,6 +658,13 @@ export class FrontRepoService {
                     marker.DivIcon = _divicon
                   }
                 }
+
+                // insertion point for redeeming ONE-MANY associations
+              }
+            )
+            userclicks.forEach(
+              userclick => {
+                // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
 
                 // insertion point for redeeming ONE-MANY associations
               }
@@ -1061,6 +1113,57 @@ export class FrontRepoService {
     )
   }
 
+  // UserClickPull performs a GET on UserClick of the stack and redeem association pointers 
+  UserClickPull(): Observable<FrontRepo> {
+    return new Observable<FrontRepo>(
+      (observer) => {
+        combineLatest([
+          this.userclickService.getUserClicks()
+        ]).subscribe(
+          ([ // insertion point sub template 
+            userclicks,
+          ]) => {
+            // init the array
+            FrontRepoSingloton.UserClicks_array = userclicks
+
+            // clear the map that counts UserClick in the GET
+            FrontRepoSingloton.UserClicks_batch.clear()
+
+            // 
+            // First Step: init map of instances
+            // insertion point sub template 
+            userclicks.forEach(
+              userclick => {
+                FrontRepoSingloton.UserClicks.set(userclick.ID, userclick)
+                FrontRepoSingloton.UserClicks_batch.set(userclick.ID, userclick)
+
+                // insertion point for redeeming ONE/ZERO-ONE associations
+
+                // insertion point for redeeming ONE-MANY associations
+              }
+            )
+
+            // clear userclicks that are absent from the GET
+            FrontRepoSingloton.UserClicks.forEach(
+              userclick => {
+                if (FrontRepoSingloton.UserClicks_batch.get(userclick.ID) == undefined) {
+                  FrontRepoSingloton.UserClicks.delete(userclick.ID)
+                }
+              }
+            )
+
+            // 
+            // Second Step: redeem pointers between instances (thanks to maps in the First Step)
+            // insertion point sub template 
+
+            // hand over control flow to observer
+            observer.next(FrontRepoSingloton)
+          }
+        )
+      }
+    )
+  }
+
   // VLinePull performs a GET on VLine of the stack and redeem association pointers 
   VLinePull(): Observable<FrontRepo> {
     return new Observable<FrontRepo>(
@@ -1207,9 +1310,12 @@ export function getMapOptionsUniqueID(id: number): number {
 export function getMarkerUniqueID(id: number): number {
   return 59 * id
 }
-export function getVLineUniqueID(id: number): number {
+export function getUserClickUniqueID(id: number): number {
   return 61 * id
 }
-export function getVisualTrackUniqueID(id: number): number {
+export function getVLineUniqueID(id: number): number {
   return 67 * id
+}
+export function getVisualTrackUniqueID(id: number): number {
+  return 71 * id
 }

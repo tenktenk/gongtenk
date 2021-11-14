@@ -1,5 +1,7 @@
 package models
 
+import "log"
+
 // VisualTrack provides all necessary elements to the front to display a track
 //
 // In leaflet, it is translated into a MovingMarker
@@ -56,4 +58,27 @@ func (visualTrack *VisualTrack) UpdateTrack() {
 
 		visualTrack.LayerGroup = computeLayerGroupFromLayerGroupName(visualTrack.VisualTrackInterface.GetLayerGroupName())
 	}
+}
+
+// AttachVisualTrack attaches a visual track to track
+func AttachVisualTrack(track VisualTrackInterface,
+	divIcon *DivIcon,
+	colorEnum ColorEnum,
+	displayTrackHistory bool,
+	displayLevelAndSpeed bool) (visualTrack *VisualTrack) {
+
+	// sometimes, the visual icon is nil (not reproductible bug)
+	if divIcon == nil {
+		log.Fatal("nil visual icon")
+	}
+
+	visualTrack = new(VisualTrack).Stage()
+	visualTrack.VisualTrackInterface = track
+	visualTrack.DivIcon = divIcon
+	visualTrack.DisplayTrackHistory = displayTrackHistory
+	visualTrack.DisplayLevelAndSpeed = displayLevelAndSpeed
+	visualTrack.ColorEnum = colorEnum
+	visualTrack.UpdateTrack()
+
+	return
 }

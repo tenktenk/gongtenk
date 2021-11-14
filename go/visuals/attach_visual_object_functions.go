@@ -48,26 +48,6 @@ func attachMarker(
 	visualCenter.UpdateMarker()
 }
 
-// attach visual line to line
-func attachLine(
-	visualLineInterface gongleaflet_models.LineInterface,
-	DashStyleEnum gongleaflet_models.DashStyleEnum) {
-	visualLine := new(gongleaflet_models.VLine).Stage()
-	visualLine.DashStyleEnum = DashStyleEnum
-	visualLine.LineInterface = visualLineInterface
-	visualLine.UpdateLine()
-}
-
-// attach visual circle to circle
-func attachCircle(
-	visualCircleInterface gongleaflet_models.CircleInterface,
-	DashStyleEnum gongleaflet_models.DashStyleEnum) {
-	visualCircle := new(gongleaflet_models.Circle).Stage()
-	visualCircle.DashStyleEnum = DashStyleEnum
-	visualCircle.Circle = visualCircleInterface
-	visualCircle.UpdateCircle()
-}
-
 func AttachVisualElementsToModelElements() {
 
 	// reset all tracks
@@ -96,12 +76,27 @@ func AttachVisualElementsToModelElements() {
 		}
 
 		if city.Twin {
-			attachVisualTrack(city, gongleaflet_icons.Dot_10Icon, gongleaflet_models.GREY, false, false)
+			gongleaflet_models.AttachVisualTrack(city, gongleaflet_icons.Dot_10Icon, gongleaflet_models.GREY, false, false)
 		} else {
-			attachVisualTrack(city, gongleaflet_icons.Dot_10Icon, gongleaflet_models.GREEN, false, false)
+			gongleaflet_models.AttachVisualTrack(city, gongleaflet_icons.Dot_10Icon, gongleaflet_models.GREEN, false, false)
 		}
 		gongleaflet_models.Stage.Commit()
 	}
+
+	// reset all markers
+	gongleaflet_models.Stage.Markers = make(map[*gongleaflet_models.Marker]struct{})
+	gongleaflet_models.Stage.Markers_mapString = make(map[string]*gongleaflet_models.Marker)
+	gongleaflet_models.Stage.Commit()
+
+	for userClick := range gongleaflet_models.Stage.UserClicks {
+
+		(&models.Individual{
+			Name: userClick.Name,
+			Lat:  userClick.Lat,
+			Lng:  userClick.Lng,
+		}).Stage().Commit()
+	}
+
 }
 
 func StartVisualObjectRefresherThread() {

@@ -73,6 +73,11 @@ import { MarkerSortingComponent } from './marker-sorting/marker-sorting.componen
 import { MarkerDetailComponent } from './marker-detail/marker-detail.component'
 import { MarkerPresentationComponent } from './marker-presentation/marker-presentation.component'
 
+import { UserClicksTableComponent } from './userclicks-table/userclicks-table.component'
+import { UserClickSortingComponent } from './userclick-sorting/userclick-sorting.component'
+import { UserClickDetailComponent } from './userclick-detail/userclick-detail.component'
+import { UserClickPresentationComponent } from './userclick-presentation/userclick-presentation.component'
+
 import { VLinesTableComponent } from './vlines-table/vlines-table.component'
 import { VLineSortingComponent } from './vline-sorting/vline-sorting.component'
 import { VLineDetailComponent } from './vline-detail/vline-detail.component'
@@ -121,6 +126,11 @@ import { VisualTrackPresentationComponent } from './visualtrack-presentation/vis
 		MarkerSortingComponent,
 		MarkerDetailComponent,
 		MarkerPresentationComponent,
+
+		UserClicksTableComponent,
+		UserClickSortingComponent,
+		UserClickDetailComponent,
+		UserClickPresentationComponent,
 
 		VLinesTableComponent,
 		VLineSortingComponent,
@@ -205,6 +215,11 @@ import { VisualTrackPresentationComponent } from './visualtrack-presentation/vis
 		MarkerSortingComponent,
 		MarkerDetailComponent,
 		MarkerPresentationComponent,
+
+		UserClicksTableComponent,
+		UserClickSortingComponent,
+		UserClickDetailComponent,
+		UserClickPresentationComponent,
 
 		VLinesTableComponent,
 		VLineSortingComponent,

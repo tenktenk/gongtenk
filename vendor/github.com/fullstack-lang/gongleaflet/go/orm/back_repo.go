@@ -33,6 +33,8 @@ type BackRepoStruct struct {
 
 	BackRepoMarker BackRepoMarkerStruct
 
+	BackRepoUserClick BackRepoUserClickStruct
+
 	BackRepoVLine BackRepoVLineStruct
 
 	BackRepoVisualTrack BackRepoVisualTrackStruct
@@ -73,6 +75,7 @@ func (backRepo *BackRepoStruct) init(db *gorm.DB) {
 	backRepo.BackRepoLayerGroupUse.Init(db)
 	backRepo.BackRepoMapOptions.Init(db)
 	backRepo.BackRepoMarker.Init(db)
+	backRepo.BackRepoUserClick.Init(db)
 	backRepo.BackRepoVLine.Init(db)
 	backRepo.BackRepoVisualTrack.Init(db)
 
@@ -89,6 +92,7 @@ func (backRepo *BackRepoStruct) Commit(stage *models.StageStruct) {
 	backRepo.BackRepoLayerGroupUse.CommitPhaseOne(stage)
 	backRepo.BackRepoMapOptions.CommitPhaseOne(stage)
 	backRepo.BackRepoMarker.CommitPhaseOne(stage)
+	backRepo.BackRepoUserClick.CommitPhaseOne(stage)
 	backRepo.BackRepoVLine.CommitPhaseOne(stage)
 	backRepo.BackRepoVisualTrack.CommitPhaseOne(stage)
 
@@ -100,6 +104,7 @@ func (backRepo *BackRepoStruct) Commit(stage *models.StageStruct) {
 	backRepo.BackRepoLayerGroupUse.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoMapOptions.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoMarker.CommitPhaseTwo(backRepo)
+	backRepo.BackRepoUserClick.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoVLine.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoVisualTrack.CommitPhaseTwo(backRepo)
 
@@ -116,6 +121,7 @@ func (backRepo *BackRepoStruct) Checkout(stage *models.StageStruct) {
 	backRepo.BackRepoLayerGroupUse.CheckoutPhaseOne()
 	backRepo.BackRepoMapOptions.CheckoutPhaseOne()
 	backRepo.BackRepoMarker.CheckoutPhaseOne()
+	backRepo.BackRepoUserClick.CheckoutPhaseOne()
 	backRepo.BackRepoVLine.CheckoutPhaseOne()
 	backRepo.BackRepoVisualTrack.CheckoutPhaseOne()
 
@@ -127,6 +133,7 @@ func (backRepo *BackRepoStruct) Checkout(stage *models.StageStruct) {
 	backRepo.BackRepoLayerGroupUse.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoMapOptions.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoMarker.CheckoutPhaseTwo(backRepo)
+	backRepo.BackRepoUserClick.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoVLine.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoVisualTrack.CheckoutPhaseTwo(backRepo)
 }
@@ -153,6 +160,7 @@ func (backRepo *BackRepoStruct) Backup(stage *models.StageStruct, dirPath string
 	backRepo.BackRepoLayerGroupUse.Backup(dirPath)
 	backRepo.BackRepoMapOptions.Backup(dirPath)
 	backRepo.BackRepoMarker.Backup(dirPath)
+	backRepo.BackRepoUserClick.Backup(dirPath)
 	backRepo.BackRepoVLine.Backup(dirPath)
 	backRepo.BackRepoVisualTrack.Backup(dirPath)
 }
@@ -172,6 +180,7 @@ func (backRepo *BackRepoStruct) BackupXL(stage *models.StageStruct, dirPath stri
 	backRepo.BackRepoLayerGroupUse.BackupXL(file)
 	backRepo.BackRepoMapOptions.BackupXL(file)
 	backRepo.BackRepoMarker.BackupXL(file)
+	backRepo.BackRepoUserClick.BackupXL(file)
 	backRepo.BackRepoVLine.BackupXL(file)
 	backRepo.BackRepoVisualTrack.BackupXL(file)
 
@@ -205,6 +214,7 @@ func (backRepo *BackRepoStruct) Restore(stage *models.StageStruct, dirPath strin
 	backRepo.BackRepoLayerGroupUse.RestorePhaseOne(dirPath)
 	backRepo.BackRepoMapOptions.RestorePhaseOne(dirPath)
 	backRepo.BackRepoMarker.RestorePhaseOne(dirPath)
+	backRepo.BackRepoUserClick.RestorePhaseOne(dirPath)
 	backRepo.BackRepoVLine.RestorePhaseOne(dirPath)
 	backRepo.BackRepoVisualTrack.RestorePhaseOne(dirPath)
 
@@ -220,6 +230,7 @@ func (backRepo *BackRepoStruct) Restore(stage *models.StageStruct, dirPath strin
 	backRepo.BackRepoLayerGroupUse.RestorePhaseTwo()
 	backRepo.BackRepoMapOptions.RestorePhaseTwo()
 	backRepo.BackRepoMarker.RestorePhaseTwo()
+	backRepo.BackRepoUserClick.RestorePhaseTwo()
 	backRepo.BackRepoVLine.RestorePhaseTwo()
 	backRepo.BackRepoVisualTrack.RestorePhaseTwo()
 
@@ -255,6 +266,7 @@ func (backRepo *BackRepoStruct) RestoreXL(stage *models.StageStruct, dirPath str
 	backRepo.BackRepoLayerGroupUse.RestoreXLPhaseOne(file)
 	backRepo.BackRepoMapOptions.RestoreXLPhaseOne(file)
 	backRepo.BackRepoMarker.RestoreXLPhaseOne(file)
+	backRepo.BackRepoUserClick.RestoreXLPhaseOne(file)
 	backRepo.BackRepoVLine.RestoreXLPhaseOne(file)
 	backRepo.BackRepoVisualTrack.RestoreXLPhaseOne(file)
 

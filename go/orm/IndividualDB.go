@@ -60,6 +60,16 @@ type IndividualDB struct {
 
 	// Declation for basic field individualDB.Name {{BasicKind}} (to be completed)
 	Name_Data sql.NullString
+
+	// Declation for basic field individualDB.Lat {{BasicKind}} (to be completed)
+	Lat_Data sql.NullFloat64
+
+	// Declation for basic field individualDB.Lng {{BasicKind}} (to be completed)
+	Lng_Data sql.NullFloat64
+
+	// Declation for basic field individualDB.Twin bool (to be completed)
+	// provide the sql storage for the boolan
+	Twin_Data sql.NullBool
 	// encoding of pointers
 	IndividualPointersEnconding
 }
@@ -82,6 +92,12 @@ type IndividualWOP struct {
 	// insertion for WOP basic fields
 
 	Name string `xlsx:"1"`
+
+	Lat float64 `xlsx:"2"`
+
+	Lng float64 `xlsx:"3"`
+
+	Twin bool `xlsx:"4"`
 	// insertion for WOP pointer fields
 }
 
@@ -89,6 +105,9 @@ var Individual_Fields = []string{
 	// insertion for WOP basic fields
 	"ID",
 	"Name",
+	"Lat",
+	"Lng",
+	"Twin",
 }
 
 type BackRepoIndividualStruct struct {
@@ -372,6 +391,15 @@ func (individualDB *IndividualDB) CopyBasicFieldsFromIndividual(individual *mode
 
 	individualDB.Name_Data.String = individual.Name
 	individualDB.Name_Data.Valid = true
+
+	individualDB.Lat_Data.Float64 = individual.Lat
+	individualDB.Lat_Data.Valid = true
+
+	individualDB.Lng_Data.Float64 = individual.Lng
+	individualDB.Lng_Data.Valid = true
+
+	individualDB.Twin_Data.Bool = individual.Twin
+	individualDB.Twin_Data.Valid = true
 }
 
 // CopyBasicFieldsFromIndividualWOP
@@ -380,12 +408,24 @@ func (individualDB *IndividualDB) CopyBasicFieldsFromIndividualWOP(individual *I
 
 	individualDB.Name_Data.String = individual.Name
 	individualDB.Name_Data.Valid = true
+
+	individualDB.Lat_Data.Float64 = individual.Lat
+	individualDB.Lat_Data.Valid = true
+
+	individualDB.Lng_Data.Float64 = individual.Lng
+	individualDB.Lng_Data.Valid = true
+
+	individualDB.Twin_Data.Bool = individual.Twin
+	individualDB.Twin_Data.Valid = true
 }
 
 // CopyBasicFieldsToIndividual
 func (individualDB *IndividualDB) CopyBasicFieldsToIndividual(individual *models.Individual) {
 	// insertion point for checkout of basic fields (back repo to stage)
 	individual.Name = individualDB.Name_Data.String
+	individual.Lat = individualDB.Lat_Data.Float64
+	individual.Lng = individualDB.Lng_Data.Float64
+	individual.Twin = individualDB.Twin_Data.Bool
 }
 
 // CopyBasicFieldsToIndividualWOP
@@ -393,6 +433,9 @@ func (individualDB *IndividualDB) CopyBasicFieldsToIndividualWOP(individual *Ind
 	individual.ID = int(individualDB.ID)
 	// insertion point for checkout of basic fields (back repo to stage)
 	individual.Name = individualDB.Name_Data.String
+	individual.Lat = individualDB.Lat_Data.Float64
+	individual.Lng = individualDB.Lng_Data.Float64
+	individual.Twin = individualDB.Twin_Data.Bool
 }
 
 // Backup generates a json file from a slice of all IndividualDB instances in the backrepo

@@ -2,8 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { IndividualDB } from '../individual-db'
-import { IndividualService } from '../individual.service'
+import { UserClickDB } from '../userclick-db'
+import { UserClickService } from '../userclick.service'
 
 import { FrontRepoService, FrontRepo, SelectionMode, DialogData } from '../front-repo.service'
 import { MapOfComponents } from '../map-components'
@@ -17,26 +17,25 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angu
 
 import { NullInt64 } from '../null-int64'
 
-// IndividualDetailComponent is initilizaed from different routes
-// IndividualDetailComponentState detail different cases 
-enum IndividualDetailComponentState {
+// UserClickDetailComponent is initilizaed from different routes
+// UserClickDetailComponentState detail different cases 
+enum UserClickDetailComponentState {
 	CREATE_INSTANCE,
 	UPDATE_INSTANCE,
 	// insertion point for declarations of enum values of state
 }
 
 @Component({
-	selector: 'app-individual-detail',
-	templateUrl: './individual-detail.component.html',
-	styleUrls: ['./individual-detail.component.css'],
+	selector: 'app-userclick-detail',
+	templateUrl: './userclick-detail.component.html',
+	styleUrls: ['./userclick-detail.component.css'],
 })
-export class IndividualDetailComponent implements OnInit {
+export class UserClickDetailComponent implements OnInit {
 
 	// insertion point for declarations
-	TwinFormControl = new FormControl(false);
 
-	// the IndividualDB of interest
-	individual: IndividualDB = new IndividualDB
+	// the UserClickDB of interest
+	userclick: UserClickDB = new UserClickDB
 
 	// front repo
 	frontRepo: FrontRepo = new FrontRepo
@@ -47,7 +46,7 @@ export class IndividualDetailComponent implements OnInit {
 	mapFields_displayAsTextArea = new Map<string, boolean>()
 
 	// the state at initialization (CREATION, UPDATE or CREATE with one association set)
-	state: IndividualDetailComponentState = IndividualDetailComponentState.CREATE_INSTANCE
+	state: UserClickDetailComponentState = UserClickDetailComponentState.CREATE_INSTANCE
 
 	// in UDPATE state, if is the id of the instance to update
 	// in CREATE state with one association set, this is the id of the associated instance
@@ -58,7 +57,7 @@ export class IndividualDetailComponent implements OnInit {
 	originStructFieldName: string = ""
 
 	constructor(
-		private individualService: IndividualService,
+		private userclickService: UserClickService,
 		private frontRepoService: FrontRepoService,
 		public dialog: MatDialog,
 		private route: ActivatedRoute,
@@ -75,10 +74,10 @@ export class IndividualDetailComponent implements OnInit {
 
 		const association = this.route.snapshot.paramMap.get('association');
 		if (this.id == 0) {
-			this.state = IndividualDetailComponentState.CREATE_INSTANCE
+			this.state = UserClickDetailComponentState.CREATE_INSTANCE
 		} else {
 			if (this.originStruct == undefined) {
-				this.state = IndividualDetailComponentState.UPDATE_INSTANCE
+				this.state = UserClickDetailComponentState.UPDATE_INSTANCE
 			} else {
 				switch (this.originStructFieldName) {
 					// insertion point for state computation
@@ -88,13 +87,13 @@ export class IndividualDetailComponent implements OnInit {
 			}
 		}
 
-		this.getIndividual()
+		this.getUserClick()
 
 		// observable for changes in structs
-		this.individualService.IndividualServiceChanged.subscribe(
+		this.userclickService.UserClickServiceChanged.subscribe(
 			message => {
 				if (message == "post" || message == "update" || message == "delete") {
-					this.getIndividual()
+					this.getUserClick()
 				}
 			}
 		)
@@ -102,20 +101,20 @@ export class IndividualDetailComponent implements OnInit {
 		// insertion point for initialisation of enums list
 	}
 
-	getIndividual(): void {
+	getUserClick(): void {
 
 		this.frontRepoService.pull().subscribe(
 			frontRepo => {
 				this.frontRepo = frontRepo
 
 				switch (this.state) {
-					case IndividualDetailComponentState.CREATE_INSTANCE:
-						this.individual = new (IndividualDB)
+					case UserClickDetailComponentState.CREATE_INSTANCE:
+						this.userclick = new (UserClickDB)
 						break;
-					case IndividualDetailComponentState.UPDATE_INSTANCE:
-						let individual = frontRepo.Individuals.get(this.id)
-						console.assert(individual != undefined, "missing individual with id:" + this.id)
-						this.individual = individual!
+					case UserClickDetailComponentState.UPDATE_INSTANCE:
+						let userclick = frontRepo.UserClicks.get(this.id)
+						console.assert(userclick != undefined, "missing userclick with id:" + this.id)
+						this.userclick = userclick!
 						break;
 					// insertion point for init of association field
 					default:
@@ -123,7 +122,6 @@ export class IndividualDetailComponent implements OnInit {
 				}
 
 				// insertion point for recovery of form controls value for bool fields
-				this.TwinFormControl.setValue(this.individual.Twin)
 			}
 		)
 
@@ -136,23 +134,22 @@ export class IndividualDetailComponent implements OnInit {
 		// pointers fields, after the translation, are nulled in order to perform serialization
 
 		// insertion point for translation/nullation of each field
-		this.individual.Twin = this.TwinFormControl.value
 
 		// save from the front pointer space to the non pointer space for serialization
 
 		// insertion point for translation/nullation of each pointers
 
 		switch (this.state) {
-			case IndividualDetailComponentState.UPDATE_INSTANCE:
-				this.individualService.updateIndividual(this.individual)
-					.subscribe(individual => {
-						this.individualService.IndividualServiceChanged.next("update")
+			case UserClickDetailComponentState.UPDATE_INSTANCE:
+				this.userclickService.updateUserClick(this.userclick)
+					.subscribe(userclick => {
+						this.userclickService.UserClickServiceChanged.next("update")
 					});
 				break;
 			default:
-				this.individualService.postIndividual(this.individual).subscribe(individual => {
-					this.individualService.IndividualServiceChanged.next("post")
-					this.individual = new (IndividualDB) // reset fields
+				this.userclickService.postUserClick(this.userclick).subscribe(userclick => {
+					this.userclickService.UserClickServiceChanged.next("post")
+					this.userclick = new (UserClickDB) // reset fields
 				});
 		}
 	}
@@ -175,7 +172,7 @@ export class IndividualDetailComponent implements OnInit {
 		dialogConfig.height = "50%"
 		if (selectionMode == SelectionMode.ONE_MANY_ASSOCIATION_MODE) {
 
-			dialogData.ID = this.individual.ID!
+			dialogData.ID = this.userclick.ID!
 			dialogData.ReversePointer = reverseField
 			dialogData.OrderingMode = false
 			dialogData.SelectionMode = selectionMode
@@ -191,13 +188,13 @@ export class IndividualDetailComponent implements OnInit {
 			});
 		}
 		if (selectionMode == SelectionMode.MANY_MANY_ASSOCIATION_MODE) {
-			dialogData.ID = this.individual.ID!
+			dialogData.ID = this.userclick.ID!
 			dialogData.ReversePointer = reverseField
 			dialogData.OrderingMode = false
 			dialogData.SelectionMode = selectionMode
 
 			// set up the source
-			dialogData.SourceStruct = "Individual"
+			dialogData.SourceStruct = "UserClick"
 			dialogData.SourceField = sourceField
 
 			// set up the intermediate struct
@@ -227,7 +224,7 @@ export class IndividualDetailComponent implements OnInit {
 		// dialogConfig.disableClose = true;
 		dialogConfig.autoFocus = true;
 		dialogConfig.data = {
-			ID: this.individual.ID,
+			ID: this.userclick.ID,
 			ReversePointer: reverseField,
 			OrderingMode: true,
 		};
@@ -243,8 +240,8 @@ export class IndividualDetailComponent implements OnInit {
 	}
 
 	fillUpNameIfEmpty(event: { value: { Name: string; }; }) {
-		if (this.individual.Name == undefined) {
-			this.individual.Name = event.value.Name
+		if (this.userclick.Name == undefined) {
+			this.userclick.Name = event.value.Name
 		}
 	}
 

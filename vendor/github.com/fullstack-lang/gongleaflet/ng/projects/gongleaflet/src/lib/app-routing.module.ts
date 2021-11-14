@@ -30,6 +30,10 @@ import { MarkersTableComponent } from './markers-table/markers-table.component'
 import { MarkerDetailComponent } from './marker-detail/marker-detail.component'
 import { MarkerPresentationComponent } from './marker-presentation/marker-presentation.component'
 
+import { UserClicksTableComponent } from './userclicks-table/userclicks-table.component'
+import { UserClickDetailComponent } from './userclick-detail/userclick-detail.component'
+import { UserClickPresentationComponent } from './userclick-presentation/userclick-presentation.component'
+
 import { VLinesTableComponent } from './vlines-table/vlines-table.component'
 import { VLineDetailComponent } from './vline-detail/vline-detail.component'
 import { VLinePresentationComponent } from './vline-presentation/vline-presentation.component'
@@ -88,6 +92,13 @@ const routes: Routes = [ // insertion point for routes declarations
 	{ path: 'github_com_fullstack_lang_gongleaflet_go-marker-detail/:id', component: MarkerDetailComponent, outlet: 'github_com_fullstack_lang_gongleaflet_go_editor' },
 	{ path: 'github_com_fullstack_lang_gongleaflet_go-marker-presentation/:id', component: MarkerPresentationComponent, outlet: 'github_com_fullstack_lang_gongleaflet_go_presentation' },
 	{ path: 'github_com_fullstack_lang_gongleaflet_go-marker-presentation-special/:id', component: MarkerPresentationComponent, outlet: 'github_com_fullstack_lang_gongleaflet_gomarkerpres' },
+
+	{ path: 'github_com_fullstack_lang_gongleaflet_go-userclicks', component: UserClicksTableComponent, outlet: 'github_com_fullstack_lang_gongleaflet_go_table' },
+	{ path: 'github_com_fullstack_lang_gongleaflet_go-userclick-adder', component: UserClickDetailComponent, outlet: 'github_com_fullstack_lang_gongleaflet_go_editor' },
+	{ path: 'github_com_fullstack_lang_gongleaflet_go-userclick-adder/:id/:originStruct/:originStructFieldName', component: UserClickDetailComponent, outlet: 'github_com_fullstack_lang_gongleaflet_go_editor' },
+	{ path: 'github_com_fullstack_lang_gongleaflet_go-userclick-detail/:id', component: UserClickDetailComponent, outlet: 'github_com_fullstack_lang_gongleaflet_go_editor' },
+	{ path: 'github_com_fullstack_lang_gongleaflet_go-userclick-presentation/:id', component: UserClickPresentationComponent, outlet: 'github_com_fullstack_lang_gongleaflet_go_presentation' },
+	{ path: 'github_com_fullstack_lang_gongleaflet_go-userclick-presentation-special/:id', component: UserClickPresentationComponent, outlet: 'github_com_fullstack_lang_gongleaflet_gouserclickpres' },
 
 	{ path: 'github_com_fullstack_lang_gongleaflet_go-vlines', component: VLinesTableComponent, outlet: 'github_com_fullstack_lang_gongleaflet_go_table' },
 	{ path: 'github_com_fullstack_lang_gongleaflet_go-vline-adder', component: VLineDetailComponent, outlet: 'github_com_fullstack_lang_gongleaflet_go_editor' },

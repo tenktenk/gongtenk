@@ -22,6 +22,8 @@ import { MapOptionsService } from '../mapoptions.service'
 import { getMapOptionsUniqueID } from '../front-repo.service'
 import { MarkerService } from '../marker.service'
 import { getMarkerUniqueID } from '../front-repo.service'
+import { UserClickService } from '../userclick.service'
+import { getUserClickUniqueID } from '../front-repo.service'
 import { VLineService } from '../vline.service'
 import { getVLineUniqueID } from '../front-repo.service'
 import { VisualTrackService } from '../visualtrack.service'
@@ -168,6 +170,7 @@ export class SidebarComponent implements OnInit {
     private layergroupuseService: LayerGroupUseService,
     private mapoptionsService: MapOptionsService,
     private markerService: MarkerService,
+    private userclickService: UserClickService,
     private vlineService: VLineService,
     private visualtrackService: VisualTrackService,
   ) { }
@@ -226,6 +229,14 @@ export class SidebarComponent implements OnInit {
     )
     // observable for changes in structs
     this.markerService.MarkerServiceChanged.subscribe(
+      message => {
+        if (message == "post" || message == "update" || message == "delete") {
+          this.refresh()
+        }
+      }
+    )
+    // observable for changes in structs
+    this.userclickService.UserClickServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
           this.refresh()
@@ -749,6 +760,50 @@ export class SidebarComponent implements OnInit {
             DivIconGongNodeAssociation.children.push(markerGongNodeInstance_DivIcon)
           }
 
+        }
+      )
+
+      /**
+      * fill up the UserClick part of the mat tree
+      */
+      let userclickGongNodeStruct: GongNode = {
+        name: "UserClick",
+        type: GongNodeType.STRUCT,
+        id: 0,
+        uniqueIdPerStack: 13 * nonInstanceNodeId,
+        structName: "UserClick",
+        associationField: "",
+        associatedStructName: "",
+        children: new Array<GongNode>()
+      }
+      nonInstanceNodeId = nonInstanceNodeId + 1
+      this.gongNodeTree.push(userclickGongNodeStruct)
+
+      this.frontRepo.UserClicks_array.sort((t1, t2) => {
+        if (t1.Name > t2.Name) {
+          return 1;
+        }
+        if (t1.Name < t2.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      this.frontRepo.UserClicks_array.forEach(
+        userclickDB => {
+          let userclickGongNodeInstance: GongNode = {
+            name: userclickDB.Name,
+            type: GongNodeType.INSTANCE,
+            id: userclickDB.ID,
+            uniqueIdPerStack: getUserClickUniqueID(userclickDB.ID),
+            structName: "UserClick",
+            associationField: "",
+            associatedStructName: "",
+            children: new Array<GongNode>()
+          }
+          userclickGongNodeStruct.children!.push(userclickGongNodeInstance)
+
+          // insertion point for per field code
         }
       )
 

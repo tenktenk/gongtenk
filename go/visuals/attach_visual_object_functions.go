@@ -6,7 +6,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/tenktenk/gongtenk/go/models"
+	gongtenk_models "github.com/tenktenk/gongtenk/go/models"
+	"github.com/tenktenk/translate/translation"
 
 	gongleaflet_icons "github.com/fullstack-lang/gongleaflet/go/icons"
 	gongleaflet_models "github.com/fullstack-lang/gongleaflet/go/models"
@@ -49,17 +50,14 @@ func attachMarker(
 }
 
 // map to store relationship between user click and individuals
-var mapUserClick_Individual = make(map[*gongleaflet_models.UserClick]*models.Individual)
+var mapUserClick_Individual = make(map[*gongleaflet_models.UserClick]*gongtenk_models.Individual)
+var mapCity_VisualTrack = make(map[*gongtenk_models.City]*gongleaflet_models.VisualTrack)
 
 func AttachVisualElementsToModelElements() {
 
 	// reset all tracks
-	gongleaflet_models.Stage.VisualTracks = make(map[*gongleaflet_models.VisualTrack]struct{})
-	gongleaflet_models.Stage.VisualTracks_mapString = make(map[string]*gongleaflet_models.VisualTrack)
-	gongleaflet_models.Stage.Commit()
-
-	cityOrdered := []*models.City{}
-	for city := range models.Stage.Citys {
+	cityOrdered := []*gongtenk_models.City{}
+	for city := range gongtenk_models.Stage.Citys {
 		cityOrdered = append(cityOrdered, city)
 	}
 	// sort cities according to their population
@@ -67,46 +65,62 @@ func AttachVisualElementsToModelElements() {
 		return cityOrdered[i].Population > cityOrdered[j].Population
 	})
 
-	// checkout the number of cities
-	models.ConfigurationSingloton.Checkout()
+	// checkout the number of cities to display
+	gongtenk_models.ConfigurationSingloton.Checkout()
 
 	for index, city := range cityOrdered {
-		_ = city
 
+		visualTrack := mapCity_VisualTrack[city]
+
+		//
+		// 1. Cities to not display
+		//
 		// since there are twin cities, one need to multiply by 2
-		if index > models.ConfigurationSingloton.NumberOfCitiesToDisplay*2 {
+		if index > gongtenk_models.ConfigurationSingloton.NumberOfCitiesToDisplay*2 {
+			// delete the track
+			if visualTrack != nil {
+				visualTrack.Unstage()
+				delete(mapCity_VisualTrack, city)
+			}
 			continue
 		}
 
-		if city.Twin {
-			gongleaflet_models.AttachVisualTrack(city, gongleaflet_icons.Dot_10Icon, gongleaflet_models.GREY, false, false)
-		} else {
-			gongleaflet_models.AttachVisualTrack(city, gongleaflet_icons.Dot_10Icon, gongleaflet_models.GREEN, false, false)
+		//
+		// 2. Cities to display
+		//
+		if visualTrack == nil {
+			if city.Twin {
+				visualTrack = gongleaflet_models.AttachVisualTrack(city, gongleaflet_icons.Dot_10Icon, gongleaflet_models.GREY, false, false)
+			} else {
+				visualTrack = gongleaflet_models.AttachVisualTrack(city, gongleaflet_icons.Dot_10Icon, gongleaflet_models.GREEN, false, false)
+			}
+			mapCity_VisualTrack[city] = visualTrack
 		}
 		gongleaflet_models.Stage.Commit()
 	}
 
-	// reset all markers
-	gongleaflet_models.Stage.Markers = make(map[*gongleaflet_models.Marker]struct{})
-	gongleaflet_models.Stage.Markers_mapString = make(map[string]*gongleaflet_models.Marker)
-	gongleaflet_models.Stage.Commit()
-
 	for userClick := range gongleaflet_models.Stage.UserClicks {
 
 		if mapUserClick_Individual[userClick] == nil {
-			individual := (&models.Individual{
+
+			//
+			// fetch which country
+			//
+			currentTranslation := translation.GetTranslateCurrent()
+			_ = currentTranslation
+
+			individual := (&gongtenk_models.Individual{
 				Name: fmt.Sprintf("%f %f", userClick.Lat, userClick.Lng),
 				Lat:  userClick.Lat,
 				Lng:  userClick.Lng,
-			}).Stage().Commit()
+			}).Stage()
 			mapUserClick_Individual[userClick] = individual
 
 			gongleaflet_models.AttachMarker(individual, gongleaflet_models.GREY, gongleaflet_icons.Dot_10Icon)
-
 		}
 	}
+	gongtenk_models.Stage.Commit()
 	gongleaflet_models.Stage.Commit()
-
 }
 
 func StartVisualObjectRefresherThread() {
@@ -120,15 +134,15 @@ func StartVisualObjectRefresherThread() {
 
 		for true {
 
-			if models.Stage.BackRepo != nil {
+			if gongtenk_models.Stage.BackRepo != nil {
 				// check if commit nb has increased
-				if commitNb < models.Stage.BackRepo.GetLastCommitNb() {
-					commitNb = models.Stage.BackRepo.GetLastCommitNb()
+				if commitNb < gongtenk_models.Stage.BackRepo.GetLastCommitNb() {
+					commitNb = gongtenk_models.Stage.BackRepo.GetLastCommitNb()
 					fmt.Println("Backend Commit increased")
 					AttachVisualElementsToModelElements()
 				}
-				if commitNbFromFront < models.Stage.BackRepo.GetLastPushFromFrontNb() {
-					commitNbFromFront = models.Stage.BackRepo.GetLastPushFromFrontNb()
+				if commitNbFromFront < gongtenk_models.Stage.BackRepo.GetLastPushFromFrontNb() {
+					commitNbFromFront = gongtenk_models.Stage.BackRepo.GetLastPushFromFrontNb()
 					fmt.Println("Front Commit increased")
 					AttachVisualElementsToModelElements()
 				}

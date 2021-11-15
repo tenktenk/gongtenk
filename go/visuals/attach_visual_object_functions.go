@@ -48,6 +48,9 @@ func attachMarker(
 	visualCenter.UpdateMarker()
 }
 
+// map to store relationship between user click and individuals
+var mapUserClick_Individual = make(map[*gongleaflet_models.UserClick]*models.Individual)
+
 func AttachVisualElementsToModelElements() {
 
 	// reset all tracks
@@ -90,12 +93,19 @@ func AttachVisualElementsToModelElements() {
 
 	for userClick := range gongleaflet_models.Stage.UserClicks {
 
-		(&models.Individual{
-			Name: userClick.Name,
-			Lat:  userClick.Lat,
-			Lng:  userClick.Lng,
-		}).Stage().Commit()
+		if mapUserClick_Individual[userClick] == nil {
+			individual := (&models.Individual{
+				Name: fmt.Sprintf("%f %f", userClick.Lat, userClick.Lng),
+				Lat:  userClick.Lat,
+				Lng:  userClick.Lng,
+			}).Stage().Commit()
+			mapUserClick_Individual[userClick] = individual
+
+			gongleaflet_models.AttachMarker(individual, gongleaflet_models.GREY, gongleaflet_icons.Dot_10Icon)
+
+		}
 	}
+	gongleaflet_models.Stage.Commit()
 
 }
 
@@ -105,6 +115,8 @@ func StartVisualObjectRefresherThread() {
 
 		var commitNb uint
 		var commitNbFromFront uint
+
+		var gongleafletUserClick int
 
 		for true {
 
@@ -120,8 +132,18 @@ func StartVisualObjectRefresherThread() {
 					fmt.Println("Front Commit increased")
 					AttachVisualElementsToModelElements()
 				}
-				time.Sleep(1 * time.Second)
 			}
+
+			if gongleafletUserClick < len(gongleaflet_models.Stage.UserClicks) {
+				gongleafletUserClick = len(gongleaflet_models.Stage.UserClicks)
+
+				fmt.Println("Nb user click increased")
+				AttachVisualElementsToModelElements()
+			}
+
+			//
+			time.Sleep(500 * time.Microsecond)
+
 		}
 	}()
 }

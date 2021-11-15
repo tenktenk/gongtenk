@@ -109,13 +109,13 @@
       "group": "build"
     },
     {
-      "label": "00 - go get -d github.com/fullstack-lang/gongxlsx@HEAD",
+      "label": "00 - go get -d github.com/tenktenk/translate@HEAD",
       "type": "shell",
       "command": "go",
       "args": [
         "get",
         "-d",
-        "github.com/fullstack-lang/gongxlsx@HEAD",
+        "github.com/tenktenk/translate@HEAD",
       ],
       "group": "build"
     },

@@ -105,12 +105,12 @@ github.com/shabbyrobe/xmlwriter
 # github.com/tealeg/xlsx/v3 v3.2.3
 ## explicit; go 1.14
 github.com/tealeg/xlsx/v3
-# github.com/tenktenk/translate v0.0.0-20211114192220-06e6d572e431
+# github.com/tenktenk/translate v0.0.0-20211115220458-722e7e43924d
 ## explicit; go 1.17
-github.com/tenktenk/translate/barnes-hut
-github.com/tenktenk/translate/grump
-github.com/tenktenk/translate/quadtree
-github.com/tenktenk/translate/translation
+github.com/tenktenk/translate/go/barnes-hut
+github.com/tenktenk/translate/go/grump
+github.com/tenktenk/translate/go/models
+github.com/tenktenk/translate/go/quadtree
 # github.com/ugorji/go/codec v1.2.6
 ## explicit; go 1.11
 github.com/ugorji/go/codec

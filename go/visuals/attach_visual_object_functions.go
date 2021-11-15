@@ -7,7 +7,7 @@ import (
 	"time"
 
 	gongtenk_models "github.com/tenktenk/gongtenk/go/models"
-	"github.com/tenktenk/translate/translation"
+	"github.com/tenktenk/translate/go/models"
 
 	gongleaflet_icons "github.com/fullstack-lang/gongleaflet/go/icons"
 	gongleaflet_models "github.com/fullstack-lang/gongleaflet/go/models"

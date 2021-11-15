@@ -8,7 +8,7 @@ import (
 
 	gongxlsx_models "github.com/fullstack-lang/gongxlsx/go/models"
 	gongtenk_models "github.com/tenktenk/gongtenk/go/models"
-	"github.com/tenktenk/translate/translation"
+	"github.com/tenktenk/translate/go/models"
 )
 
 func ReadCitiesFromExcel() {

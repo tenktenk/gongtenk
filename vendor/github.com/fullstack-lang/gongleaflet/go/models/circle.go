@@ -44,9 +44,11 @@ func (VisualCircle *Circle) UpdateCircle() {
 // attach visual circle to circle
 func AttachCircle(
 	visualCircleInterface CircleInterface,
-	DashStyleEnum DashStyleEnum) {
-	visualCircle := new(Circle).Stage()
-	visualCircle.DashStyleEnum = DashStyleEnum
-	visualCircle.Circle = visualCircleInterface
-	visualCircle.UpdateCircle()
+	DashStyleEnum DashStyleEnum) (circle *Circle) {
+	circle = new(Circle).Stage()
+	circle.DashStyleEnum = DashStyleEnum
+	circle.Circle = visualCircleInterface
+	circle.UpdateCircle()
+
+	return
 }

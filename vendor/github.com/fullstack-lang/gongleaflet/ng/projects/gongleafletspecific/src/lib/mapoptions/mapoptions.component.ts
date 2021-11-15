@@ -140,6 +140,14 @@ export class MapoptionsComponent implements OnInit {
       this.clickNumber = this.clickNumber + 1
       userClick.Lat = e.latlng.lat
       userClick.Lng = e.latlng.lng
+
+      this.userClickService.postUserClick(userClick).subscribe(
+        (userClick) => {
+          console.log("user clicked")
+          this.userClickService.UserClickServiceChanged.next("post")
+        }
+      )
+
     }
   }
 

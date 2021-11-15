@@ -16,6 +16,8 @@ github.com/fullstack-lang/gongleaflet v0.0.0-20211114213253-fdcb8c6ffffc h1:EfJk
 github.com/fullstack-lang/gongleaflet v0.0.0-20211114213253-fdcb8c6ffffc/go.mod h1:ZM92P95qgZHlpp6lUZe+W2YEgyiqBGXnShkUItE6ZlQ=
 github.com/fullstack-lang/gongleaflet v0.0.0-20211114214326-042f3d776f03 h1:YyWZ5QkFx1DZ5j6XaO5y32BNb3EfqjVTZ9Wxe10wqm4=
 github.com/fullstack-lang/gongleaflet v0.0.0-20211114214326-042f3d776f03/go.mod h1:ZM92P95qgZHlpp6lUZe+W2YEgyiqBGXnShkUItE6ZlQ=
+github.com/fullstack-lang/gongleaflet v0.0.0-20211115040414-da9a90729d5c h1:48mxfspvHe1j7gPCEN+iCZ50gKo5Q+YGN9+UT/+GUjQ=
+github.com/fullstack-lang/gongleaflet v0.0.0-20211115040414-da9a90729d5c/go.mod h1:ZM92P95qgZHlpp6lUZe+W2YEgyiqBGXnShkUItE6ZlQ=
 github.com/fullstack-lang/gongxlsx v0.0.0-20211114184946-2f4352ff9d91 h1:+J9UPxMkBYXRFVF7Kty6Zhlc067Hd+HIXexUSS4pA40=
 github.com/fullstack-lang/gongxlsx v0.0.0-20211114184946-2f4352ff9d91/go.mod h1:aH+G3kUa0WldxC3Kvzp6vEDFtlVqn+J/7UigBoPYAjM=
 github.com/gin-contrib/cors v1.3.1 h1:doAsuITavI4IOcd0Y19U4B+O0dNWihRyX//nn4sEmgA=

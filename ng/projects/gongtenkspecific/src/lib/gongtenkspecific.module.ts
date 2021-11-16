@@ -36,6 +36,9 @@ import { GongleafletspecificModule } from 'gongleafletspecific'
 import { GongxlsxModule } from 'gongxlsx'
 import { GongxlsxspecificModule } from 'gongxlsxspecific'
 
+// translate
+import { TranslateModule } from 'translate'
+
 // mandatory
 import { HttpClientModule } from '@angular/common/http';
 
@@ -75,7 +78,9 @@ import { HttpClientModule } from '@angular/common/http';
     GongleafletspecificModule,
 
     GongxlsxModule,
-    GongxlsxspecificModule
+    GongxlsxspecificModule,
+
+    TranslateModule
 
   ],
   exports: [

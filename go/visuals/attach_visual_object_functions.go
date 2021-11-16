@@ -7,10 +7,11 @@ import (
 	"time"
 
 	gongtenk_models "github.com/tenktenk/gongtenk/go/models"
-	"github.com/tenktenk/translate/go/models"
 
 	gongleaflet_icons "github.com/fullstack-lang/gongleaflet/go/icons"
 	gongleaflet_models "github.com/fullstack-lang/gongleaflet/go/models"
+
+	translate_models "github.com/tenktenk/translate/go/models"
 )
 
 // attachVisualTrack attaches a visual track to track
@@ -76,7 +77,7 @@ func AttachVisualElementsToModelElements() {
 		// 1. Cities to not display
 		//
 		// since there are twin cities, one need to multiply by 2
-		if index > gongtenk_models.ConfigurationSingloton.NumberOfCitiesToDisplay*2 {
+		if index >= gongtenk_models.ConfigurationSingloton.NumberOfCitiesToDisplay*2 {
 			// delete the track
 			if visualTrack != nil {
 				visualTrack.Unstage()
@@ -95,8 +96,8 @@ func AttachVisualElementsToModelElements() {
 				visualTrack = gongleaflet_models.AttachVisualTrack(city, gongleaflet_icons.Dot_10Icon, gongleaflet_models.GREEN, false, false)
 			}
 			mapCity_VisualTrack[city] = visualTrack
+			gongleaflet_models.Stage.Commit()
 		}
-		gongleaflet_models.Stage.Commit()
 	}
 
 	for userClick := range gongleaflet_models.Stage.UserClicks {
@@ -106,7 +107,7 @@ func AttachVisualElementsToModelElements() {
 			//
 			// fetch which country
 			//
-			currentTranslation := translation.GetTranslateCurrent()
+			currentTranslation := translate_models.GetTranslateCurrent()
 			_ = currentTranslation
 
 			individual := (&gongtenk_models.Individual{
@@ -115,12 +116,12 @@ func AttachVisualElementsToModelElements() {
 				Lng:  userClick.Lng,
 			}).Stage()
 			mapUserClick_Individual[userClick] = individual
+			gongtenk_models.Stage.Commit()
 
 			gongleaflet_models.AttachMarker(individual, gongleaflet_models.GREY, gongleaflet_icons.Dot_10Icon)
+			gongleaflet_models.Stage.Commit()
 		}
 	}
-	gongtenk_models.Stage.Commit()
-	gongleaflet_models.Stage.Commit()
 }
 
 func StartVisualObjectRefresherThread() {
@@ -157,7 +158,6 @@ func StartVisualObjectRefresherThread() {
 
 			//
 			time.Sleep(500 * time.Microsecond)
-
 		}
 	}()
 }

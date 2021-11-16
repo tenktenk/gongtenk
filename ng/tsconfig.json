@@ -101,6 +101,9 @@
       "gongxlsxspecific": [
         "../vendor/github.com/fullstack-lang/gongxlsx/ng/projects/gongxlsxspecific/src/public-api.ts"
       ],
+      "translate": [
+        "../vendor/github.com/tenktenk/translate/ng/projects/translate/src/public-api.ts"
+      ],
     }
   }
 }

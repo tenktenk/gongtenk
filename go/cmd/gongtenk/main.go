@@ -27,12 +27,19 @@ import (
 	gongtenk_models "github.com/tenktenk/gongtenk/go/models"
 	gongtenk_orm "github.com/tenktenk/gongtenk/go/orm"
 	gongtenk_visuals "github.com/tenktenk/gongtenk/go/visuals"
+	gongtenk_xlread "github.com/tenktenk/gongtenk/go/xlread"
 
 	gongxlsx_controllers "github.com/fullstack-lang/gongxlsx/go/controllers"
 	gongxlsx_models "github.com/fullstack-lang/gongxlsx/go/models"
 	gongxlsx_orm "github.com/fullstack-lang/gongxlsx/go/orm"
 	_ "github.com/fullstack-lang/gongxlsx/ng"
+
 	// load visuals package
+
+	translate_controllers "github.com/tenktenk/translate/go/controllers"
+	translate_models "github.com/tenktenk/translate/go/models"
+	translate_orm "github.com/tenktenk/translate/go/orm"
+	_ "github.com/tenktenk/translate/ng"
 )
 
 var (
@@ -71,10 +78,12 @@ func main() {
 	// add gongleaflet database
 	gongleaflet_orm.AutoMigrate(db)
 	gongxlsx_orm.AutoMigrate(db)
+	translate_orm.AutoMigrate(db)
 
 	gongtenk_controllers.RegisterControllers(r)
 	gongleaflet_controllers.RegisterControllers(r)
 	gongxlsx_controllers.RegisterControllers(r)
+	translate_controllers.RegisterControllers(r)
 
 	// provide the static route for the angular pages
 	r.Use(static.Serve("/", EmbedFolder(gongtenk.NgDistNg, "ng/dist/ng")))
@@ -84,11 +93,12 @@ func main() {
 		c.Abort()
 	})
 
-	ReadCitiesFromExcel()
+	gongtenk_xlread.ReadCitiesFromExcel()
 
 	gongtenk_models.Stage.Commit()
 	gongleaflet_models.Stage.Commit()
 	gongxlsx_models.Stage.Commit()
+	translate_models.Stage.Commit()
 
 	gongtenk_visuals.StartVisualObjectRefresherThread()
 

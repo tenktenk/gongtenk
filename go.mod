@@ -10,8 +10,8 @@ require (
 	github.com/gin-gonic/gin v1.7.4
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/tealeg/xlsx/v3 v3.2.3
-	gorm.io/driver/sqlite v1.2.3
-	gorm.io/gorm v1.22.2
+	gorm.io/driver/sqlite v1.2.4
+	gorm.io/gorm v1.22.3
 )
 
 require (
@@ -38,7 +38,7 @@ require (
 	github.com/rogpeppe/fastuuid v1.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
 	github.com/shabbyrobe/xmlwriter v0.0.0-20210324110748-440e98cf0c87 // indirect
-	github.com/tenktenk/translate v0.0.0-20211115220458-722e7e43924d
+	github.com/tenktenk/translate v0.0.0-20211116080752-d5a046163bed
 	github.com/ugorji/go/codec v1.2.6 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/sys v0.0.0-20211015200801-69063c4bb744 // indirect

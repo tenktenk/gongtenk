@@ -105,12 +105,15 @@ github.com/shabbyrobe/xmlwriter
 # github.com/tealeg/xlsx/v3 v3.2.3
 ## explicit; go 1.14
 github.com/tealeg/xlsx/v3
-# github.com/tenktenk/translate v0.0.0-20211115220458-722e7e43924d
+# github.com/tenktenk/translate v0.0.0-20211116080752-d5a046163bed
 ## explicit; go 1.17
 github.com/tenktenk/translate/go/barnes-hut
+github.com/tenktenk/translate/go/controllers
 github.com/tenktenk/translate/go/grump
 github.com/tenktenk/translate/go/models
+github.com/tenktenk/translate/go/orm
 github.com/tenktenk/translate/go/quadtree
+github.com/tenktenk/translate/ng
 # github.com/ugorji/go/codec v1.2.6
 ## explicit; go 1.11
 github.com/ugorji/go/codec
@@ -167,10 +170,10 @@ google.golang.org/protobuf/types/descriptorpb
 # gopkg.in/yaml.v2 v2.4.0
 ## explicit; go 1.15
 gopkg.in/yaml.v2
-# gorm.io/driver/sqlite v1.2.3
+# gorm.io/driver/sqlite v1.2.4
 ## explicit; go 1.14
 gorm.io/driver/sqlite
-# gorm.io/gorm v1.22.2
+# gorm.io/gorm v1.22.3
 ## explicit; go 1.14
 gorm.io/gorm
 gorm.io/gorm/callbacks

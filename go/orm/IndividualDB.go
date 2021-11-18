@@ -67,6 +67,12 @@ type IndividualDB struct {
 	// Declation for basic field individualDB.Lng {{BasicKind}} (to be completed)
 	Lng_Data sql.NullFloat64
 
+	// Declation for basic field individualDB.TwinLat {{BasicKind}} (to be completed)
+	TwinLat_Data sql.NullFloat64
+
+	// Declation for basic field individualDB.TwinLng {{BasicKind}} (to be completed)
+	TwinLng_Data sql.NullFloat64
+
 	// Declation for basic field individualDB.Twin bool (to be completed)
 	// provide the sql storage for the boolan
 	Twin_Data sql.NullBool
@@ -97,7 +103,11 @@ type IndividualWOP struct {
 
 	Lng float64 `xlsx:"3"`
 
-	Twin bool `xlsx:"4"`
+	TwinLat float64 `xlsx:"4"`
+
+	TwinLng float64 `xlsx:"5"`
+
+	Twin bool `xlsx:"6"`
 	// insertion for WOP pointer fields
 }
 
@@ -107,6 +117,8 @@ var Individual_Fields = []string{
 	"Name",
 	"Lat",
 	"Lng",
+	"TwinLat",
+	"TwinLng",
 	"Twin",
 }
 
@@ -398,6 +410,12 @@ func (individualDB *IndividualDB) CopyBasicFieldsFromIndividual(individual *mode
 	individualDB.Lng_Data.Float64 = individual.Lng
 	individualDB.Lng_Data.Valid = true
 
+	individualDB.TwinLat_Data.Float64 = individual.TwinLat
+	individualDB.TwinLat_Data.Valid = true
+
+	individualDB.TwinLng_Data.Float64 = individual.TwinLng
+	individualDB.TwinLng_Data.Valid = true
+
 	individualDB.Twin_Data.Bool = individual.Twin
 	individualDB.Twin_Data.Valid = true
 }
@@ -415,6 +433,12 @@ func (individualDB *IndividualDB) CopyBasicFieldsFromIndividualWOP(individual *I
 	individualDB.Lng_Data.Float64 = individual.Lng
 	individualDB.Lng_Data.Valid = true
 
+	individualDB.TwinLat_Data.Float64 = individual.TwinLat
+	individualDB.TwinLat_Data.Valid = true
+
+	individualDB.TwinLng_Data.Float64 = individual.TwinLng
+	individualDB.TwinLng_Data.Valid = true
+
 	individualDB.Twin_Data.Bool = individual.Twin
 	individualDB.Twin_Data.Valid = true
 }
@@ -425,6 +449,8 @@ func (individualDB *IndividualDB) CopyBasicFieldsToIndividual(individual *models
 	individual.Name = individualDB.Name_Data.String
 	individual.Lat = individualDB.Lat_Data.Float64
 	individual.Lng = individualDB.Lng_Data.Float64
+	individual.TwinLat = individualDB.TwinLat_Data.Float64
+	individual.TwinLng = individualDB.TwinLng_Data.Float64
 	individual.Twin = individualDB.Twin_Data.Bool
 }
 
@@ -435,6 +461,8 @@ func (individualDB *IndividualDB) CopyBasicFieldsToIndividualWOP(individual *Ind
 	individual.Name = individualDB.Name_Data.String
 	individual.Lat = individualDB.Lat_Data.Float64
 	individual.Lng = individualDB.Lng_Data.Float64
+	individual.TwinLat = individualDB.TwinLat_Data.Float64
+	individual.TwinLng = individualDB.TwinLng_Data.Float64
 	individual.Twin = individualDB.Twin_Data.Bool
 }
 

@@ -40,6 +40,20 @@
             </td>
         </ng-container>
         <!-- -->
+        <ng-container matColumnDef="TwinLat">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> TwinLat </th>
+            <td mat-cell *matCellDef="let Individual">
+                {{Individual.TwinLat.toPrecision(5)}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="TwinLng">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> TwinLng </th>
+            <td mat-cell *matCellDef="let Individual">
+                {{Individual.TwinLng.toPrecision(5)}}
+            </td>
+        </ng-container>
+        <!-- -->
         <ng-container matColumnDef="Twin">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Twin </th>
             <td mat-cell *matCellDef="let Individual">

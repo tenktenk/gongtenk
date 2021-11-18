@@ -121,9 +121,34 @@ func AttachVisualElementsToModelElements() {
 				Lng:  userClick.Lng,
 			}).Stage()
 			mapUserClick_Individual[userClick] = individual
+
+			// creates the twin
+			if individual.Lng > -30 {
+				currentTranslation.SetSourceCountry("fra")
+				currentTranslation.SetTargetCountry("hti")
+			} else {
+				currentTranslation.SetSourceCountry("hti")
+				currentTranslation.SetTargetCountry("fra")
+			}
+
+			_, _, _, xSpread, ySpread, _ :=
+				currentTranslation.BodyCoordsInSourceCountry(individual.Lat, individual.Lng)
+			individual.Name = fmt.Sprintf("%.1f %.1f", xSpread*100.0, ySpread*100.0)
+			gongleaflet_models.AttachMarker(individual, gongleaflet_models.GREY, gongleaflet_icons.Dot_10Icon)
+
+			latTarget, lngTarget := currentTranslation.LatLngToXYInTargetCountry(xSpread, ySpread)
+			individual.TwinLat = latTarget
+			individual.TwinLng = lngTarget
+
+			twinIndividual := new(gongtenk_models.Individual).Stage()
+			*twinIndividual = *individual
+			twinIndividual.Lat = individual.TwinLat
+			twinIndividual.Lng = individual.TwinLng
+			twinIndividual.Twin = true
+
 			gongtenk_models.Stage.Commit()
 
-			gongleaflet_models.AttachMarker(individual, gongleaflet_models.GREY, gongleaflet_icons.Dot_10Icon)
+			gongleaflet_models.AttachMarker(twinIndividual, gongleaflet_models.GREY, gongleaflet_icons.Dot_10Icon)
 			gongleaflet_models.Stage.Commit()
 		}
 	}

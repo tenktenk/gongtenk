@@ -1,10 +1,12 @@
 package models
 
 type Individual struct {
-	Name string
-	Lat  float64
-	Lng  float64
-	Twin bool // false if this is the original individual, true if it has been translated
+	Name    string
+	Lat     float64
+	Lng     float64
+	TwinLat float64
+	TwinLng float64
+	Twin    bool // false if this is the original individual, true if it has been translated
 }
 
 // functions to satisty the visual interface for track

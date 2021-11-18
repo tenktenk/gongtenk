@@ -34,6 +34,18 @@
     </mat-form-field>
 
     <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>TwinLat</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="individual.TwinLat" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <!-- -->
+    <mat-form-field class="detail-full-width">
+        <mat-label>TwinLng</mat-label>
+        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="individual.TwinLng" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <!-- -->
     <mat-checkbox [formControl]="TwinFormControl">Twin</mat-checkbox>
 
     <div class="details__save">

@@ -75,6 +75,12 @@ export class IndividualsTableComponent implements OnInit {
         case 'Lng':
           return individualDB.Lng;
 
+        case 'TwinLat':
+          return individualDB.TwinLat;
+
+        case 'TwinLng':
+          return individualDB.TwinLng;
+
         case 'Twin':
           return individualDB.Twin?"true":"false";
 
@@ -95,6 +101,8 @@ export class IndividualsTableComponent implements OnInit {
       mergedContent += individualDB.Name.toLowerCase()
       mergedContent += individualDB.Lat.toString()
       mergedContent += individualDB.Lng.toString()
+      mergedContent += individualDB.TwinLat.toString()
+      mergedContent += individualDB.TwinLng.toString()
 
       let isSelected = mergedContent.includes(filter.toLowerCase())
       return isSelected
@@ -148,6 +156,8 @@ export class IndividualsTableComponent implements OnInit {
         "Name",
         "Lat",
         "Lng",
+        "TwinLat",
+        "TwinLng",
         "Twin",
       ]
     } else {
@@ -155,6 +165,8 @@ export class IndividualsTableComponent implements OnInit {
         "Name",
         "Lat",
         "Lng",
+        "TwinLat",
+        "TwinLng",
         "Twin",
       ]
       this.selection = new SelectionModel<IndividualDB>(allowMultiSelect, this.initialSelection);

@@ -12,6 +12,8 @@ export class IndividualDB {
 	Name: string = ""
 	Lat: number = 0
 	Lng: number = 0
+	TwinLat: number = 0
+	TwinLng: number = 0
 	Twin: boolean = false
 
 	// insertion point for other declarations

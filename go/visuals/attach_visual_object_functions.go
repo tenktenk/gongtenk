@@ -69,6 +69,7 @@ func AttachVisualElementsToModelElements() {
 	// checkout the number of cities to display
 	gongtenk_models.ConfigurationSingloton.Checkout()
 
+	var gongleafletNeedCommit bool
 	for index, city := range cityOrdered {
 
 		visualTrack := mapCity_VisualTrack[city]
@@ -82,6 +83,7 @@ func AttachVisualElementsToModelElements() {
 			if visualTrack != nil {
 				visualTrack.Unstage()
 				delete(mapCity_VisualTrack, city)
+				gongleafletNeedCommit = true
 			}
 			continue
 		}
@@ -96,8 +98,11 @@ func AttachVisualElementsToModelElements() {
 				visualTrack = gongleaflet_models.AttachVisualTrack(city, gongleaflet_icons.Dot_10Icon, gongleaflet_models.GREEN, false, false)
 			}
 			mapCity_VisualTrack[city] = visualTrack
-			gongleaflet_models.Stage.Commit()
+			gongleafletNeedCommit = true
 		}
+	}
+	if gongleafletNeedCommit {
+		gongleaflet_models.Stage.Commit()
 	}
 
 	for userClick := range gongleaflet_models.Stage.UserClicks {

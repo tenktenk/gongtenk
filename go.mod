@@ -38,7 +38,7 @@ require (
 	github.com/rogpeppe/fastuuid v1.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
 	github.com/shabbyrobe/xmlwriter v0.0.0-20210324110748-440e98cf0c87 // indirect
-	github.com/tenktenk/translate v0.0.0-20211116080752-d5a046163bed
+	github.com/tenktenk/translate v0.0.0-20211121042741-1bee6ba61061
 	github.com/ugorji/go/codec v1.2.6 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/sys v0.0.0-20211015200801-69063c4bb744 // indirect

@@ -115,6 +115,10 @@ github.com/tenktenk/translate v0.0.0-20211116071938-8c3994a281b1 h1:nOWeuXsDkssB
 github.com/tenktenk/translate v0.0.0-20211116071938-8c3994a281b1/go.mod h1:d4Z36vtg9gLsS0UB3wF+wzB/4g/YciwkGZu1uKdY1qM=
 github.com/tenktenk/translate v0.0.0-20211116080752-d5a046163bed h1:fiAAS2wjEZVhnrO+eZmkf/b1DLBk3S3xLqBaNLhJjPI=
 github.com/tenktenk/translate v0.0.0-20211116080752-d5a046163bed/go.mod h1:d4Z36vtg9gLsS0UB3wF+wzB/4g/YciwkGZu1uKdY1qM=
+github.com/tenktenk/translate v0.0.0-20211117073022-c7b52ccfe294 h1:Fh+Lwb4VLXtfjnipFWJoL50PPMFP06BlxowOhwtF6Kc=
+github.com/tenktenk/translate v0.0.0-20211117073022-c7b52ccfe294/go.mod h1:d4Z36vtg9gLsS0UB3wF+wzB/4g/YciwkGZu1uKdY1qM=
+github.com/tenktenk/translate v0.0.0-20211121042741-1bee6ba61061 h1:4AI4o8gp5BPdozzezyPyZe3vEuNUINc9iFv82GM4keY=
+github.com/tenktenk/translate v0.0.0-20211121042741-1bee6ba61061/go.mod h1:d4Z36vtg9gLsS0UB3wF+wzB/4g/YciwkGZu1uKdY1qM=
 github.com/ugorji/go v1.1.7/go.mod h1:kZn38zHttfInRq0xu/PH0az30d+z6vm202qpg1oXVMw=
 github.com/ugorji/go v1.2.6 h1:tGiWC9HENWE2tqYycIqFTNorMmFRVhNwCpDOpWqnk8E=
 github.com/ugorji/go v1.2.6/go.mod h1:anCg0y61KIhDlPZmnH+so+RQbysYVyDko0IMgJv0Nn0=

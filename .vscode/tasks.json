@@ -81,52 +81,52 @@
       "args": [
         "get",
         "-d",
-        "github.com/fullstack-lang/gongxlsx@HEAD",
-        "github.com/fullstack-lang/gongleaflet@HEAD",
+        "github.com/fullstack-lang/gongxlsx@main",
+        "github.com/fullstack-lang/gongleaflet@main",
       ],
       "group": "build"
     },
     {
-      "label": "00 - go get -d github.com/fullstack-lang/gongxlsx@HEAD",
+      "label": "00 - go get -d github.com/fullstack-lang/gongxlsx@main",
       "type": "shell",
       "command": "go",
       "args": [
         "get",
         "-d",
-        "github.com/fullstack-lang/gongxlsx@HEAD",
+        "github.com/fullstack-lang/gongxlsx@main",
       ],
       "group": "build"
     },
     {
-      "label": "00 - go get -d github.com/thomaspeugeot/tkv@HEAD",
+      "label": "00 - go get -d github.com/thomaspeugeot/tkv@main",
       "type": "shell",
       "command": "go",
       "args": [
         "get",
         "-d",
-        "github.com/thomaspeugeot/tkv@HEAD",
+        "github.com/thomaspeugeot/tkv@main",
       ],
       "group": "build"
     },
     {
-      "label": "00 - go get -d github.com/tenktenk/translate@HEAD",
+      "label": "00 - go get -d github.com/tenktenk/translate@thomaspeugeot_issue1",
       "type": "shell",
       "command": "go",
       "args": [
         "get",
         "-d",
-        "github.com/tenktenk/translate@HEAD",
+        "github.com/tenktenk/translate@thomaspeugeot_issue1",
       ],
       "group": "build"
     },
     {
-      "label": "00 - go get -d github.com/fullstack-lang/gongleaflet@HEAD",
+      "label": "00 - go get -d github.com/fullstack-lang/gongleaflet@main",
       "type": "shell",
       "command": "go",
       "args": [
         "get",
         "-d",
-        "github.com/fullstack-lang/gongleaflet@HEAD",
+        "github.com/fullstack-lang/gongleaflet@main",
       ],
       "group": "build"
     },

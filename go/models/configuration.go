@@ -10,5 +10,5 @@ type Configuration struct {
 
 var ConfigurationSingloton = (&Configuration{
 	Name:                    "Gong Tenk Configuration",
-	NumberOfCitiesToDisplay: 2,
+	NumberOfCitiesToDisplay: 30,
 }).Stage()

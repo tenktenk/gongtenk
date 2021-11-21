@@ -69,6 +69,9 @@ export class CitysTableComponent implements OnInit {
         case 'Name':
           return cityDB.Name;
 
+        case 'DisplayName':
+          return cityDB.DisplayName;
+
         case 'Lat':
           return cityDB.Lat;
 
@@ -105,6 +108,7 @@ export class CitysTableComponent implements OnInit {
 
       // insertion point for merging of fields
       mergedContent += cityDB.Name.toLowerCase()
+      mergedContent += cityDB.DisplayName.toLowerCase()
       mergedContent += cityDB.Lat.toString()
       mergedContent += cityDB.Lng.toString()
       mergedContent += cityDB.TwinLat.toString()
@@ -164,6 +168,7 @@ export class CitysTableComponent implements OnInit {
     if (this.mode == TableComponentMode.DISPLAY_MODE) {
       this.displayedColumns = ['ID', 'Edit', 'Delete', // insertion point for columns to display
         "Name",
+        "DisplayName",
         "Lat",
         "Lng",
         "TwinLat",
@@ -175,6 +180,7 @@ export class CitysTableComponent implements OnInit {
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
+        "DisplayName",
         "Lat",
         "Lng",
         "TwinLat",

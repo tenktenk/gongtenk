@@ -11,6 +11,7 @@ export class CityDB {
 
 	// insertion point for basic fields declarations
 	Name: string = ""
+	DisplayName: string = ""
 	Lat: number = 0
 	Lng: number = 0
 	TwinLat: number = 0

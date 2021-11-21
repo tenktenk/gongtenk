@@ -133,7 +133,7 @@ func AttachVisualElementsToModelElements() {
 
 			_, _, _, xSpread, ySpread, _ :=
 				currentTranslation.BodyCoordsInSourceCountry(individual.Lat, individual.Lng)
-			individual.Name = fmt.Sprintf("%.1f %.1f", xSpread*100.0, ySpread*100.0)
+			individual.Name = fmt.Sprintf("%.0f!%.0f", xSpread*100.0, ySpread*100.0)
 			gongleaflet_models.AttachMarker(individual, gongleaflet_models.GREY, gongleaflet_icons.Dot_10Icon)
 
 			latTarget, lngTarget := currentTranslation.LatLngToXYInTargetCountry(xSpread, ySpread)

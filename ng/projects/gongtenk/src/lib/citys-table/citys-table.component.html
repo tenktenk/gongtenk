@@ -26,6 +26,13 @@
             </td>
         </ng-container>
         <!-- -->
+        <ng-container matColumnDef="DisplayName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> DisplayName </th>
+            <td mat-cell *matCellDef="let City">
+                {{City.DisplayName}}
+            </td>
+        </ng-container>
+        <!-- -->
         <ng-container matColumnDef="Lat">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Lat </th>
             <td mat-cell *matCellDef="let City">

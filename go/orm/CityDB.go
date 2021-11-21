@@ -65,6 +65,9 @@ type CityDB struct {
 	// Declation for basic field cityDB.Name {{BasicKind}} (to be completed)
 	Name_Data sql.NullString
 
+	// Declation for basic field cityDB.DisplayName {{BasicKind}} (to be completed)
+	DisplayName_Data sql.NullString
+
 	// Declation for basic field cityDB.Lat {{BasicKind}} (to be completed)
 	Lat_Data sql.NullFloat64
 
@@ -106,17 +109,19 @@ type CityWOP struct {
 
 	Name string `xlsx:"1"`
 
-	Lat float64 `xlsx:"2"`
+	DisplayName string `xlsx:"2"`
 
-	Lng float64 `xlsx:"3"`
+	Lat float64 `xlsx:"3"`
 
-	TwinLat float64 `xlsx:"4"`
+	Lng float64 `xlsx:"4"`
 
-	TwinLng float64 `xlsx:"5"`
+	TwinLat float64 `xlsx:"5"`
 
-	Population int `xlsx:"6"`
+	TwinLng float64 `xlsx:"6"`
 
-	Twin bool `xlsx:"7"`
+	Population int `xlsx:"7"`
+
+	Twin bool `xlsx:"8"`
 	// insertion for WOP pointer fields
 }
 
@@ -124,6 +129,7 @@ var City_Fields = []string{
 	// insertion for WOP basic fields
 	"ID",
 	"Name",
+	"DisplayName",
 	"Lat",
 	"Lng",
 	"TwinLat",
@@ -427,6 +433,9 @@ func (cityDB *CityDB) CopyBasicFieldsFromCity(city *models.City) {
 	cityDB.Name_Data.String = city.Name
 	cityDB.Name_Data.Valid = true
 
+	cityDB.DisplayName_Data.String = city.DisplayName
+	cityDB.DisplayName_Data.Valid = true
+
 	cityDB.Lat_Data.Float64 = city.Lat
 	cityDB.Lat_Data.Valid = true
 
@@ -453,6 +462,9 @@ func (cityDB *CityDB) CopyBasicFieldsFromCityWOP(city *CityWOP) {
 	cityDB.Name_Data.String = city.Name
 	cityDB.Name_Data.Valid = true
 
+	cityDB.DisplayName_Data.String = city.DisplayName
+	cityDB.DisplayName_Data.Valid = true
+
 	cityDB.Lat_Data.Float64 = city.Lat
 	cityDB.Lat_Data.Valid = true
 
@@ -476,6 +488,7 @@ func (cityDB *CityDB) CopyBasicFieldsFromCityWOP(city *CityWOP) {
 func (cityDB *CityDB) CopyBasicFieldsToCity(city *models.City) {
 	// insertion point for checkout of basic fields (back repo to stage)
 	city.Name = cityDB.Name_Data.String
+	city.DisplayName = cityDB.DisplayName_Data.String
 	city.Lat = cityDB.Lat_Data.Float64
 	city.Lng = cityDB.Lng_Data.Float64
 	city.TwinLat = cityDB.TwinLat_Data.Float64
@@ -489,6 +502,7 @@ func (cityDB *CityDB) CopyBasicFieldsToCityWOP(city *CityWOP) {
 	city.ID = int(cityDB.ID)
 	// insertion point for checkout of basic fields (back repo to stage)
 	city.Name = cityDB.Name_Data.String
+	city.DisplayName = cityDB.DisplayName_Data.String
 	city.Lat = cityDB.Lat_Data.Float64
 	city.Lng = cityDB.Lng_Data.Float64
 	city.TwinLat = cityDB.TwinLat_Data.Float64

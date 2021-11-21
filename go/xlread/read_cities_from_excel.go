@@ -63,6 +63,7 @@ func ReadCitiesFromExcel() {
 		}
 		_, _, _, xSpread, ySpread, _ :=
 			currentTranslation.BodyCoordsInSourceCountry(city.Lat, city.Lng)
+		city.DisplayName = fmt.Sprintf("%s %.0f!%.0f", city.Name, xSpread*100.0, ySpread*100.0)
 
 		latTarget, lngTarget := currentTranslation.LatLngToXYInTargetCountry(xSpread, ySpread)
 		city.TwinLat = latTarget

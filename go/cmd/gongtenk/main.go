@@ -45,7 +45,7 @@ import (
 var (
 	logDBFlag  = flag.Bool("logDB", false, "log mode for db")
 	logGINFlag = flag.Bool("logGIN", false, "log mode for gin")
-	apiFlag    = flag.Bool("api", false, "it true, use api controllers instead of default controllers")
+	datastore  = flag.String("datastore", "../../../../countries_input", "path to the data store")
 )
 
 func main() {
@@ -93,14 +93,14 @@ func main() {
 		c.Abort()
 	})
 
-	gongtenk_xlread.ReadCitiesFromExcel()
+	gongtenk_xlread.ReadCitiesFromExcel(*datastore)
 
 	gongtenk_models.Stage.Commit()
 	gongleaflet_models.Stage.Commit()
 	gongxlsx_models.Stage.Commit()
 	translate_models.Stage.Commit()
 
-	gongtenk_visuals.StartVisualObjectRefresherThread()
+	gongtenk_visuals.StartVisualObjectRefresherThread(*datastore)
 
 	log.Printf("Server ready serve on localhost:8080")
 	r.Run()

@@ -54,7 +54,7 @@ func attachMarker(
 var mapUserClick_Individual = make(map[*gongleaflet_models.UserClick]*gongtenk_models.Individual)
 var mapCity_VisualTrack = make(map[*gongtenk_models.City]*gongleaflet_models.VisualTrack)
 
-func AttachVisualElementsToModelElements() {
+func AttachVisualElementsToModelElements(datastore string) {
 
 	// reset all tracks
 	cityOrdered := []*gongtenk_models.City{}
@@ -112,7 +112,7 @@ func AttachVisualElementsToModelElements() {
 			//
 			// fetch which country
 			//
-			currentTranslation := translate_models.GetTranslateCurrent()
+			currentTranslation := translate_models.GetTranslateCurrent(datastore)
 			_ = currentTranslation
 
 			individual := (&gongtenk_models.Individual{
@@ -154,7 +154,7 @@ func AttachVisualElementsToModelElements() {
 	}
 }
 
-func StartVisualObjectRefresherThread() {
+func StartVisualObjectRefresherThread(datastore string) {
 
 	go func() {
 
@@ -170,12 +170,12 @@ func StartVisualObjectRefresherThread() {
 				if commitNb < gongtenk_models.Stage.BackRepo.GetLastCommitNb() {
 					commitNb = gongtenk_models.Stage.BackRepo.GetLastCommitNb()
 					fmt.Println("Backend Commit increased")
-					AttachVisualElementsToModelElements()
+					AttachVisualElementsToModelElements(datastore)
 				}
 				if commitNbFromFront < gongtenk_models.Stage.BackRepo.GetLastPushFromFrontNb() {
 					commitNbFromFront = gongtenk_models.Stage.BackRepo.GetLastPushFromFrontNb()
 					fmt.Println("Front Commit increased")
-					AttachVisualElementsToModelElements()
+					AttachVisualElementsToModelElements(datastore)
 				}
 			}
 
@@ -183,7 +183,7 @@ func StartVisualObjectRefresherThread() {
 				gongleafletUserClick = len(gongleaflet_models.Stage.UserClicks)
 
 				fmt.Println("Nb user click increased")
-				AttachVisualElementsToModelElements()
+				AttachVisualElementsToModelElements(datastore)
 			}
 
 			//

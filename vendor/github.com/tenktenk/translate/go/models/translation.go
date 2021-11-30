@@ -9,24 +9,8 @@ var translateCurrent Translation
 // storage for all countries
 var mapOfCountries map[string]*CountryWithBodies = nil
 
-type CountrySpec struct {
-	Name           string
-	NbBodies, Step int
-}
-
-// should have done this array directly with CountryWithBodies but
-// aint compile even with
-// 	CountryWithBodies{Name: "fra", NbBodies: 934136, Step: 8725},
-var countrySpecs = []*CountrySpec{
-	(&CountrySpec{Name: "fra", NbBodies: 934136, Step: 8725}).Stage(),
-	(&CountrySpec{Name: "hti", NbBodies: 190948, Step: 1334}).Stage(),
-	(&CountrySpec{Name: "usa", NbBodies: 1422837, Step: 2735}).Stage(),
-	// CountrySpec{Name: "chn", NbBodies: 771973, Step: 2531},
-	// CountrySpec{Name: "rus", NbBodies: 509497, Step: 3386},
-}
-
 // Singloton pattern to init the current translation
-func GetTranslateCurrent() *Translation {
+func GetTranslateCurrent(datastore string) *Translation {
 
 	// check if the current translation is void.
 	if mapOfCountries == nil {
@@ -34,7 +18,7 @@ func GetTranslateCurrent() *Translation {
 		mapOfCountries = make(map[string]*CountryWithBodies)
 
 		// stage the country
-		for _, countrySpec := range countrySpecs {
+		for _, countrySpec := range CountrySpecs {
 			country := (&CountryWithBodies{
 				Country: grump.Country{
 					Name: countrySpec.Name,
@@ -43,7 +27,7 @@ func GetTranslateCurrent() *Translation {
 				Step:     countrySpec.Step,
 			}).Stage()
 
-			country.Init()
+			country.Init(datastore)
 
 			mapOfCountries[country.Name] = country
 		}

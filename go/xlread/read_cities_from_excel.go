@@ -12,7 +12,7 @@ import (
 	translate_models "github.com/tenktenk/translate/go/models"
 )
 
-func ReadCitiesFromExcel() {
+func ReadCitiesFromExcel(datastore string) {
 
 	// load cities
 	file := new(gongxlsx_models.XLFile).Stage()
@@ -22,7 +22,7 @@ func ReadCitiesFromExcel() {
 	translate_models.Info.SetOutput(ioutil.Discard)
 
 	// load tenk translation
-	currentTranslation := translate_models.GetTranslateCurrent()
+	currentTranslation := translate_models.GetTranslateCurrent(datastore)
 
 	log.Printf("Created translation")
 

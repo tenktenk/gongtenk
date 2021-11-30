@@ -43,6 +43,10 @@ const (
 	SPREAD_CONFIGURATION   = "SPREAD_CONFIGURATION"
 )
 
+func (country *CountryWithBodies) GetBodies() (bodiesOrig *[]quadtree.BodyXY) {
+	return country.bodiesOrig
+}
+
 // number of village per X or Y axis. For 10 000 villages, this number is 100
 // this value can be set interactively during the run
 var nbVillagePerAxe int = 100
@@ -76,7 +80,7 @@ var bodsFileReader io.ReadCloser
 var bodsFileReaderErr error
 
 // load configuration from filename into country
-// check that it matches the
+// if isOriginal, uses step 00000 else uses country.Step
 func (country *CountryWithBodies) LoadConfig(datastore string, isOriginal bool) bool {
 
 	bodsFileReaderErr = nil
@@ -94,7 +98,6 @@ func (country *CountryWithBodies) LoadConfig(datastore string, isOriginal bool) 
 	filename := fmt.Sprintf(barneshut.CountryBodiesNamePattern, country.Name, country.NbBodies, step)
 	Info.Printf("LoadConfig (orig = true/final = false) %t file %s for country %s at step %d", isOriginal, filename, country.Name, step)
 
-	// join path to datastore
 	filename = filepath.Join(datastore, filename)
 
 	// check if file is missing.

@@ -109,13 +109,13 @@
       "group": "build"
     },
     {
-      "label": "00 - go get -d github.com/tenktenk/translate@thomaspeugeot_issue1",
+      "label": "00 - go get -d github.com/tenktenk/translate@thomaspeugeot_issue2",
       "type": "shell",
       "command": "go",
       "args": [
         "get",
         "-d",
-        "github.com/tenktenk/translate@thomaspeugeot_issue1",
+        "github.com/tenktenk/translate@thomaspeugeot_issue2",
       ],
       "group": "build"
     },

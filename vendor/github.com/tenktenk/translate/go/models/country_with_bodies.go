@@ -76,7 +76,7 @@ var bodsFileReader io.ReadCloser
 var bodsFileReaderErr error
 
 // load configuration from filename into country
-// check that it matches the
+// if isOriginal, uses step 00000 else uses country.Step
 func (country *CountryWithBodies) LoadConfig(datastore string, isOriginal bool) bool {
 
 	bodsFileReaderErr = nil
@@ -94,7 +94,6 @@ func (country *CountryWithBodies) LoadConfig(datastore string, isOriginal bool) 
 	filename := fmt.Sprintf(barneshut.CountryBodiesNamePattern, country.Name, country.NbBodies, step)
 	Info.Printf("LoadConfig (orig = true/final = false) %t file %s for country %s at step %d", isOriginal, filename, country.Name, step)
 
-	// join path to datastore
 	filename = filepath.Join(datastore, filename)
 
 	// check if file is missing.
